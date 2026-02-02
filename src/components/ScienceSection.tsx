@@ -78,14 +78,11 @@ export function ScienceSection() {
           className="mb-12"
         >
           <div className="bg-primary rounded-2xl p-6 md:p-8 mb-6">
-            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2 mb-4">
-              <h3 className="text-2xl font-bold text-primary-foreground tracking-tight">
-                YDIN <span className="text-primary-foreground/60 font-normal text-lg">(Core)</span>
-              </h3>
-              <span className="text-accent font-semibold text-lg">90–100%</span>
-            </div>
+            <h3 className="text-2xl font-bold text-primary-foreground tracking-tight mb-4">
+              YDIN <span className="text-primary-foreground/60 font-normal text-lg">(Core)</span>
+            </h3>
             <p className="text-primary-foreground/80 italic">
-              Kirjan pääsisältö. Ilman näitä kirjaa ei voi kirjoittaa.
+              HAR-malli tukeutuu näihin elimellisesti.
             </p>
           </div>
 
@@ -122,14 +119,11 @@ export function ScienceSection() {
           className="mb-12"
         >
           <div className="bg-secondary/10 rounded-2xl p-6 md:p-8 mb-6 border border-secondary/30">
-            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2 mb-4">
-              <h3 className="text-2xl font-bold text-secondary tracking-tight">
-                TUKI <span className="text-secondary/60 font-normal text-lg">(Support)</span>
-              </h3>
-              <span className="text-secondary font-semibold text-lg">50–70%</span>
-            </div>
+            <h3 className="text-2xl font-bold text-secondary tracking-tight mb-4">
+              TUKI <span className="text-secondary/60 font-normal text-lg">(Support)</span>
+            </h3>
             <p className="text-muted-foreground italic">
-              Tuovat syvyyttä ja tieteellistä uskottavuutta.
+              Tuo syvyyttä ja selittää mallia eri näkökulmista tieteen keinoin.
             </p>
           </div>
 
@@ -159,12 +153,9 @@ export function ScienceSection() {
           className="mb-12"
         >
           <div className="bg-muted/50 rounded-2xl p-6 md:p-8 mb-6 border border-border">
-            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2 mb-4">
-              <h3 className="text-2xl font-bold text-muted-foreground tracking-tight">
-                KONTEKSTI <span className="text-muted-foreground/60 font-normal text-lg">(Context)</span>
-              </h3>
-              <span className="text-muted-foreground font-semibold text-lg">10–30%</span>
-            </div>
+            <h3 className="text-2xl font-bold text-muted-foreground tracking-tight mb-4">
+              KONTEKSTI <span className="text-muted-foreground/60 font-normal text-lg">(Context)</span>
+            </h3>
             <p className="text-muted-foreground/80 italic">
               Varmistavat vastuullisuuden ja laajemman näkökulman.
             </p>
