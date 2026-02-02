@@ -28,15 +28,21 @@ const ctaCards = [
 const contactLinks = [
   {
     icon: Mail,
-    label: "Sähköposti",
+    label: "Sähköposti (Tapio)",
     value: "tapio@leansalesmethod.com",
     href: "mailto:tapio@leansalesmethod.com",
   },
   {
     icon: Linkedin,
-    label: "LinkedIn",
+    label: "LinkedIn (Tapio)",
     value: "linkedin.com/in/tapio-nissila",
     href: "https://linkedin.com/in/tapio-nissila",
+  },
+  {
+    icon: Linkedin,
+    label: "LinkedIn (Niklas)",
+    value: "linkedin.com/in/niklas-nordling",
+    href: "https://www.linkedin.com/in/niklas-nordling-8ba2224/",
   },
   {
     icon: Calendar,
