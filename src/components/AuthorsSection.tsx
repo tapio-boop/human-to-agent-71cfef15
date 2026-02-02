@@ -5,7 +5,7 @@ const authors = [
   {
     name: "Tapio Nissilä",
     role: "Kirjoittaja",
-    background: "Yrittäjä, konsultti, tietokirjailija",
+    background: "Teknologia-alan kasvujohtaja, ex-konsultti, tietokirjailija",
     linkedin: "https://linkedin.com/in/tapio-nissila",
   },
   {
