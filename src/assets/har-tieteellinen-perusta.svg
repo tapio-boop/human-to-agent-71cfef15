@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 650" width="900" height="650">
+  <defs>
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1E2B4D;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2d3f6e;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#5B6BBF;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#7a88d4;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="grad3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#E85A71;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f07a8d;stop-opacity:1" />
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-opacity="0.15"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="900" height="650" fill="#FFFFFF"/>
+
+  <!-- Title -->
+  <text x="450" y="50" text-anchor="middle" font-family="Arial, sans-serif" font-size="28" font-weight="700" fill="#1E2B4D">HAR: Tieteellinen perusta</text>
+  <text x="450" y="78" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" fill="#666666">Kolme pilaria, jotka selittävät ihmisen ja AI-agentin yhteistyön</text>
+
+  <!-- Pillar 1: Aivot ja kognitio -->
+  <g transform="translate(150, 160)">
+    <circle cx="70" cy="70" r="70" fill="url(#grad1)" filter="url(#shadow)"/>
+    <text x="70" y="55" text-anchor="middle" font-size="36">🧠</text>
+    <text x="70" y="85" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="600" fill="white" letter-spacing="1">MIKSI</text>
+    <line x1="70" y1="145" x2="70" y2="170" stroke="#1E2B4D" stroke-width="3" opacity="0.4"/>
+    <text x="70" y="200" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#1E2B4D">Aivot ja kognitio</text>
+    <text x="70" y="220" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#888888" font-style="italic">Cognition and Brain</text>
+    <text x="70" y="250" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#555555">
+      <tspan x="70" dy="0">Ihmismielen toiminta,</tspan>
+      <tspan x="70" dy="18">sen rajat ja mahdollisuudet.</tspan>
+      <tspan x="70" dy="18">Miksi tietotyö ylikuormittaa.</tspan>
+    </text>
+  </g>
+
+  <!-- Pillar 2: Työn tulevaisuus -->
+  <g transform="translate(380, 160)">
+    <circle cx="70" cy="70" r="70" fill="url(#grad2)" filter="url(#shadow)"/>
+    <text x="70" y="55" text-anchor="middle" font-size="36">⚡</text>
+    <text x="70" y="85" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="600" fill="white" letter-spacing="1">MITÄ</text>
+    <line x1="70" y1="145" x2="70" y2="170" stroke="#5B6BBF" stroke-width="3" opacity="0.4"/>
+    <text x="70" y="200" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#1E2B4D">Työn tulevaisuus</text>
+    <text x="70" y="220" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#888888" font-style="italic">Future Work and Productivity</text>
+    <text x="70" y="250" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#555555">
+      <tspan x="70" dy="0">Miten tietotyö muuttuu.</tspan>
+      <tspan x="70" dy="18">Uusi työnjako ihmisen</tspan>
+      <tspan x="70" dy="18">ja AI-agentin välillä.</tspan>
+    </text>
+  </g>
+
+  <!-- Pillar 3: Johtaminen -->
+  <g transform="translate(610, 160)">
+    <circle cx="70" cy="70" r="70" fill="url(#grad3)" filter="url(#shadow)"/>
+    <text x="70" y="55" text-anchor="middle" font-size="36">🎯</text>
+    <text x="70" y="85" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="600" fill="white" letter-spacing="1">MITEN</text>
+    <line x1="70" y1="145" x2="70" y2="170" stroke="#E85A71" stroke-width="3" opacity="0.4"/>
+    <text x="70" y="200" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#1E2B4D">Johtaminen AI-aikakaudella</text>
+    <text x="70" y="220" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#888888" font-style="italic">Leadership in the Era of AI Agents</text>
+    <text x="70" y="250" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#555555">
+      <tspan x="70" dy="0">Miten organisaatioita</tspan>
+      <tspan x="70" dy="18">johdetaan, kun osa työvoimasta</tspan>
+      <tspan x="70" dy="18">on autonomisia agentteja.</tspan>
+    </text>
+  </g>
+
+  <!-- Connection bar -->
+  <rect x="100" y="480" width="700" height="80" rx="12" fill="#F8F9FB"/>
+
+  <!-- Connection flow -->
+  <text x="200" y="515" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" font-weight="700" fill="#1E2B4D">MIKSI</text>
+  <text x="200" y="540" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#666666">Ihmisen rajat</text>
+
+  <text x="340" y="525" text-anchor="middle" font-family="Arial, sans-serif" font-size="28" fill="#CCCCCC">→</text>
+
+  <text x="450" y="515" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" font-weight="700" fill="#5B6BBF">MITÄ</text>
+  <text x="450" y="540" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#666666">Työn muutos</text>
+
+  <text x="560" y="525" text-anchor="middle" font-family="Arial, sans-serif" font-size="28" fill="#CCCCCC">→</text>
+
+  <text x="700" y="515" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" font-weight="700" fill="#E85A71">MITEN</text>
+  <text x="700" y="540" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#666666">Johtaminen</text>
+
+  <!-- HAR Badge -->
+  <rect x="300" y="590" width="300" height="40" rx="20" fill="#1E2B4D"/>
+  <text x="450" y="616" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="600" fill="white" letter-spacing="2">HUMAN-TO-AGENT RATIO</text>
+
+</svg>

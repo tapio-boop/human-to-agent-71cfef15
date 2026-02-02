@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 750" width="900" height="750">
+  <defs>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="3" stdDeviation="6" flood-opacity="0.1"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="900" height="750" fill="#FFFFFF"/>
+
+  <!-- Title -->
+  <text x="450" y="45" text-anchor="middle" font-family="Arial, sans-serif" font-size="26" font-weight="700" fill="#1E2B4D">HAR: Tieteellinen arkkitehtuuri</text>
+  <text x="450" y="72" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#666666">Kolme kerrosta: Ydin → Tuki → Konteksti</text>
+
+  <!-- Outer ring: KONTEKSTI -->
+  <circle cx="450" cy="400" r="280" fill="#F5F5F7" stroke="#E0E0E0" stroke-width="2"/>
+
+  <!-- KONTEKSTI label and items -->
+  <text x="450" y="140" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="600" fill="#999999" letter-spacing="2">KONTEKSTI</text>
+  <text x="450" y="158" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#AAAAAA">10–30%</text>
+
+  <!-- Konteksti items - positioned around the outer edge -->
+  <g transform="translate(180, 190)">
+    <rect x="-60" y="-15" width="120" height="30" rx="15" fill="#E8E8EB"/>
+    <text x="0" y="5" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#777777">Sosiologia</text>
+  </g>
+  <g transform="translate(720, 190)">
+    <rect x="-60" y="-15" width="120" height="30" rx="15" fill="#E8E8EB"/>
+    <text x="0" y="5" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#777777">Etiikka</text>
+  </g>
+
+  <!-- Middle ring: TUKI -->
+  <circle cx="450" cy="400" r="200" fill="#EEF0F8" stroke="#D0D4E8" stroke-width="2"/>
+
+  <!-- TUKI label -->
+  <text x="450" y="220" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="600" fill="#5B6BBF" letter-spacing="2">TUKI</text>
+  <text x="450" y="238" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#8890C4">50–70%</text>
+
+  <!-- Tuki items - positioned in middle ring -->
+  <g transform="translate(280, 295)">
+    <rect x="-55" y="-12" width="110" height="24" rx="12" fill="#D8DCF0"/>
+    <text x="0" y="4" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#5B6BBF">Kognitiotiede</text>
+  </g>
+  <g transform="translate(620, 295)">
+    <rect x="-60" y="-12" width="120" height="24" rx="12" fill="#D8DCF0"/>
+    <text x="0" y="4" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#5B6BBF">Neuropsykologia</text>
+  </g>
+  <g transform="translate(260, 505)">
+    <rect x="-50" y="-12" width="100" height="24" rx="12" fill="#D8DCF0"/>
+    <text x="0" y="4" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#5B6BBF">HCI</text>
+  </g>
+  <g transform="translate(450, 565)">
+    <rect x="-70" y="-12" width="140" height="24" rx="12" fill="#D8DCF0"/>
+    <text x="0" y="4" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#5B6BBF">Työ- ja org.psykologia</text>
+  </g>
+  <g transform="translate(640, 505)">
+    <rect x="-65" y="-12" width="130" height="24" rx="12" fill="#D8DCF0"/>
+    <text x="0" y="4" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#5B6BBF">Strateginen johtaminen</text>
+  </g>
+
+  <!-- Inner circle: YDIN -->
+  <circle cx="450" cy="400" r="115" fill="#1E2B4D" filter="url(#shadow)"/>
+
+  <!-- YDIN label -->
+  <text x="450" y="310" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="600" fill="white" letter-spacing="2">YDIN</text>
+  <text x="450" y="328" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="rgba(255,255,255,0.6)">90–100%</text>
+
+  <!-- Three core areas inside -->
+  <!-- Aivot ja kognitio -->
+  <g transform="translate(450, 365)">
+    <text x="0" y="0" text-anchor="middle" font-size="20">🧠</text>
+    <text x="0" y="18" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">Aivot ja kognitio</text>
+  </g>
+
+  <!-- Työn tulevaisuus -->
+  <g transform="translate(390, 420)">
+    <text x="0" y="0" text-anchor="middle" font-size="20">⚡</text>
+    <text x="0" y="18" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">Työn tulevaisuus</text>
+  </g>
+
+  <!-- Johtaminen -->
+  <g transform="translate(510, 420)">
+    <text x="0" y="0" text-anchor="middle" font-size="20">🎯</text>
+    <text x="0" y="18" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">Johtaminen</text>
+  </g>
+
+  <!-- Divider line -->
+  <line x1="380" y1="470" x2="520" y2="470" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+
+  <!-- Tagline in core -->
+  <text x="450" y="488" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="rgba(255,255,255,0.5)">Human-to-Agent Ratio</text>
+
+  <!-- Legend at bottom -->
+  <g transform="translate(450, 700)">
+    <rect x="-350" y="-25" width="700" height="50" rx="8" fill="#FAFAFA" stroke="#EEEEEE" stroke-width="1"/>
+
+    <circle cx="-250" cy="0" r="8" fill="#1E2B4D"/>
+    <text x="-230" y="4" font-family="Arial, sans-serif" font-size="11" fill="#555555">Ydin: Kirjan pääsisältö</text>
+
+    <circle cx="-30" cy="0" r="8" fill="#D8DCF0" stroke="#5B6BBF" stroke-width="2"/>
+    <text x="-10" y="4" font-family="Arial, sans-serif" font-size="11" fill="#555555">Tuki: Tieteellinen perusta</text>
+
+    <circle cx="200" cy="0" r="8" fill="#E8E8EB" stroke="#CCCCCC" stroke-width="2"/>
+    <text x="220" y="4" font-family="Arial, sans-serif" font-size="11" fill="#555555">Konteksti: Vastuullisuus</text>
+  </g>
+
+</svg>

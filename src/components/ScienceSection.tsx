@@ -1,163 +1,222 @@
 import { motion } from "framer-motion";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import harPerustaImg from "@/assets/har-tieteellinen-perusta.svg";
+import harKerroksetImg from "@/assets/har-tutkimusalat-kerrokset.svg";
 
-const categories = [
+const coreTopics = [
   {
-    id: "teoria",
-    title: "Teoreettinen ydin",
-    question: "Miten järjestelmä käyttäytyy kun agentit tulevat mukaan?",
-    disciplines: [
-      {
-        name: "Systeemiteoria",
-        connection: "Koko viitekehyksen teoreettinen selkäranka. Organisaatio on järjestelmä, jonka tasapaino muuttuu kun agentti tuodaan mukaan.",
-        concepts: "Emergenssi, palautesilmukat, järjestelmän vakaus",
-        thinkers: "Donella Meadows, Peter Senge",
-      },
-      {
-        name: "Kybernetiikka",
-        connection: "Kontrolli ja säätely ihminen-kone -järjestelmässä. HAR:n ydinkysymys 'kuka päättää, kuka valvoo, kuka pysäyttää' on klassista kybernetiikkaa.",
-        concepts: "Feedback-ohjaus, Ashbyn laki, Viable System Model",
-        thinkers: "Norbert Wiener, Stafford Beer",
-      },
-      {
-        name: "Päätöksenteon teoria",
-        connection: "Päätöksenteon nopeus vs. laatu. HAR:n väite: tekoäly muuttaa nopeutta mutta ei automaattisesti laatua.",
-        concepts: "Bounded rationality, OODA-loop, Orient-gap",
-        thinkers: "Herbert Simon, Daniel Kahneman, John Boyd",
-      },
-    ],
+    title: "Aivot ja kognitio",
+    subtitle: "Cognition and Brain",
+    description: "Ihmismielen toiminta, sen rajat ja mahdollisuudet. Miksi tietotyö ylikuormittaa – ja miten AI-agentit voivat toimia ulkoisena prosessorina.",
   },
   {
-    id: "rajapinta",
-    title: "Ihminen-kone",
-    question: "Mitkä ovat ihmisen tiedonkäsittelyn rajat?",
-    disciplines: [
-      {
-        name: "Kognitiotiede",
-        connection: "Ihmisen tiedonkäsittelyn rajoitteet. Agenttien kasvaessa ihmisen kognitiivinen kapasiteetti muodostuu pullonkaulaksi.",
-        concepts: "Työmuistin rajoitteet, tarkkaavaisuuden jakaminen, kognitiivinen kuormitus",
-        thinkers: "George Miller, Daniel Kahneman",
-      },
-      {
-        name: "Human Factors",
-        connection: "Ihmisen ja teknologian rajapinnan suunnittelu monimutkaisissa järjestelmissä.",
-        concepts: "Human-in-the-loop, situation awareness, mode confusion",
-        thinkers: "Mica Endsley, Sidney Dekker",
-      },
-      {
-        name: "Automaatiotutkimus",
-        connection: "Automaation vaikutukset ihmisen suorituskykyyn ja virheisiin.",
-        concepts: "Automation bias, skill degradation, automaation ironiat",
-        thinkers: "Thomas Sheridan, Lisanne Bainbridge",
-      },
-    ],
+    title: "Työn tulevaisuus ja tuottavuus",
+    subtitle: "Future Work and Productivity",
+    description: "Miten tietotyö muuttuu AI-agenttien aikakaudella. Uusi työnjako ihmisen ja koneen välillä.",
   },
   {
-    id: "organisaatio",
-    title: "Organisaatiotaso",
-    question: "Miten hybridijärjestelmä organisoidaan ja johdetaan?",
-    disciplines: [
-      {
-        name: "Organisaatioteoria",
-        connection: "Rakenteet, roolit ja koordinaatio hybridijärjestelmässä.",
-        concepts: "Työn jakaminen, päätösvallan hajauttaminen, organisaation oppiminen",
-        thinkers: "James March, Henry Mintzberg",
-      },
-      {
-        name: "Luotettavuustekniikka",
-        connection: "Virheiden hallinta ja järjestelmän kyky toimia häiriötilanteissa.",
-        concepts: "High Reliability Organizations, graceful degradation, normal accidents",
-        thinkers: "Charles Perrow, Karl Weick",
-      },
-      {
-        name: "Sosiaalipsykologia",
-        connection: "Luottamus, kontrollin tunne ja muutosvastarinta.",
-        concepts: "Psykologinen turvallisuus, luottamuksen rakentuminen",
-        thinkers: "Amy Edmondson, Kurt Lewin",
-      },
-    ],
+    title: "Johtaminen AI-aikakaudella",
+    subtitle: "Leadership in the Era of AI Agents",
+    description: "Miten organisaatioita johdetaan, kun osa työvoimasta on autonomisia agentteja. Strateginen ketteryys ja johtajan uusi rooli.",
   },
+];
+
+const supportDisciplines = [
+  { name: "Kognitiotiede", detail: "Information Processing Theory, päätöksenteko" },
+  { name: "Neuropsykologia", detail: "Kognitiivinen kuormitus, stressi, palautuminen" },
+  { name: "Human-Computer Interaction", detail: "Ihmisen ja koneen yhteistyö, Joint Cognitive Systems" },
+  { name: "Työ- ja organisaatiopsykologia", detail: "Job Demands-Resources, työn imu" },
+  { name: "Strateginen johtaminen", detail: "Dynamic Capabilities" },
+];
+
+const contextDisciplines = [
+  { name: "Sosiologia", detail: "Tiimidynamiikka, luottamus digitaaliseen kollegaan" },
+  { name: "Etiikka", detail: "Johtajuuden mandaatti, vastuu virheistä" },
 ];
 
 export function ScienceSection() {
   return (
     <section id="tieteelliset" className="section-padding bg-background">
       <div className="container-narrow">
+        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="text-center mb-12"
+          className="text-center mb-10"
         >
           <h2 className="text-3xl md:text-4xl font-bold text-primary tracking-tighter mb-4">
-            Tieteelliset perusteet
+            Tieteellinen perusta
           </h2>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-            HAR-viitekehys rakentuu usean tieteenalan varaan. Monitieteinen lähestymistapa 
-            on välttämätön, koska ihmisen ja tekoälyn yhteistyö on yhtä aikaa tekninen, 
-            kognitiivinen ja organisatorinen haaste.
+            HAR-viitekehys yhdistää kolme tieteenalaa ja rakentuu kolmelle tasolle. 
+            Ydin määrittää kirjan fokuksen, tuki tuo tieteellisen syvyyden, konteksti varmistaa vastuullisuuden.
           </p>
         </motion.div>
 
+        {/* First image: Three pillars */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="mb-16"
+        >
+          <img 
+            src={harPerustaImg} 
+            alt="HAR Tieteellinen perusta - Kolme pilaria: Miksi, Mitä, Miten" 
+            className="w-full max-w-4xl mx-auto rounded-2xl shadow-lg"
+          />
+        </motion.div>
+
+        {/* YDIN (Core) - 90-100% */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.2 }}
+          className="mb-12"
         >
-          <Tabs defaultValue="teoria" className="w-full">
-            <TabsList className="w-full flex flex-wrap justify-center gap-2 h-auto bg-transparent mb-8">
-              {categories.map((cat) => (
-                <TabsTrigger
-                  key={cat.id}
-                  value={cat.id}
-                  className="px-6 py-3 rounded-lg data-[state=active]:bg-primary data-[state=active]:text-primary-foreground text-muted-foreground hover:text-primary transition-colors"
-                >
-                  {cat.title}
-                </TabsTrigger>
-              ))}
-            </TabsList>
+          <div className="bg-primary rounded-2xl p-6 md:p-8 mb-6">
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2 mb-4">
+              <h3 className="text-2xl font-bold text-primary-foreground tracking-tight">
+                YDIN <span className="text-primary-foreground/60 font-normal text-lg">(Core)</span>
+              </h3>
+              <span className="text-accent font-semibold text-lg">90–100%</span>
+            </div>
+            <p className="text-primary-foreground/80 italic">
+              Kirjan pääsisältö. Ilman näitä kirjaa ei voi kirjoittaa.
+            </p>
+          </div>
 
-            {categories.map((category) => (
-              <TabsContent key={category.id} value={category.id} className="mt-0">
-                <div className="bg-background-muted rounded-2xl p-6 md:p-8 border border-border mb-6">
-                  <p className="text-center text-lg font-medium text-primary">
-                    {category.question}
-                  </p>
-                </div>
-                
-                <div className="grid md:grid-cols-3 gap-4">
-                  {category.disciplines.map((discipline, index) => (
-                    <motion.div
-                      key={discipline.name}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: index * 0.1 }}
-                      className="bg-card rounded-xl p-6 border border-border"
-                    >
-                      <h4 className="text-lg font-semibold text-primary mb-3">
-                        {discipline.name}
-                      </h4>
-                      <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
-                        {discipline.connection}
-                      </p>
-                      <div className="space-y-2 text-xs">
-                        <p>
-                          <span className="font-medium text-secondary">Käsitteet: </span>
-                          <span className="text-muted-foreground">{discipline.concepts}</span>
-                        </p>
-                        <p>
-                          <span className="font-medium text-secondary">Ajattelijat: </span>
-                          <span className="text-muted-foreground">{discipline.thinkers}</span>
-                        </p>
-                      </div>
-                    </motion.div>
-                  ))}
-                </div>
-              </TabsContent>
+          <div className="grid md:grid-cols-3 gap-4">
+            {coreTopics.map((topic, index) => (
+              <motion.div
+                key={topic.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                className="bg-card rounded-xl p-6 border-2 border-primary shadow-md"
+              >
+                <h4 className="text-lg font-semibold text-primary mb-1">
+                  {topic.title}
+                </h4>
+                <p className="text-sm text-secondary italic mb-3">
+                  {topic.subtitle}
+                </p>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  {topic.description}
+                </p>
+              </motion.div>
             ))}
-          </Tabs>
+          </div>
+        </motion.div>
+
+        {/* TUKI (Support) - 50-70% */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="mb-12"
+        >
+          <div className="bg-secondary/10 rounded-2xl p-6 md:p-8 mb-6 border border-secondary/30">
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2 mb-4">
+              <h3 className="text-2xl font-bold text-secondary tracking-tight">
+                TUKI <span className="text-secondary/60 font-normal text-lg">(Support)</span>
+              </h3>
+              <span className="text-secondary font-semibold text-lg">50–70%</span>
+            </div>
+            <p className="text-muted-foreground italic">
+              Tuovat syvyyttä ja tieteellistä uskottavuutta.
+            </p>
+          </div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+            {supportDisciplines.map((discipline) => (
+              <div
+                key={discipline.name}
+                className="bg-background-muted rounded-lg p-4 border border-border"
+              >
+                <h4 className="font-semibold text-primary text-sm mb-1">
+                  {discipline.name}
+                </h4>
+                <p className="text-xs text-muted-foreground">
+                  {discipline.detail}
+                </p>
+              </div>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* KONTEKSTI (Context) - 10-30% */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+          className="mb-12"
+        >
+          <div className="bg-muted/50 rounded-2xl p-6 md:p-8 mb-6 border border-border">
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2 mb-4">
+              <h3 className="text-2xl font-bold text-muted-foreground tracking-tight">
+                KONTEKSTI <span className="text-muted-foreground/60 font-normal text-lg">(Context)</span>
+              </h3>
+              <span className="text-muted-foreground font-semibold text-lg">10–30%</span>
+            </div>
+            <p className="text-muted-foreground/80 italic">
+              Varmistavat vastuullisuuden ja laajemman näkökulman.
+            </p>
+          </div>
+
+          <div className="grid sm:grid-cols-2 gap-3 max-w-xl">
+            {contextDisciplines.map((discipline) => (
+              <div
+                key={discipline.name}
+                className="bg-muted/30 rounded-lg p-4 border border-border/50"
+              >
+                <h4 className="font-semibold text-muted-foreground text-sm mb-1">
+                  {discipline.name}
+                </h4>
+                <p className="text-xs text-muted-foreground/80">
+                  {discipline.detail}
+                </p>
+              </div>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* Second image: Concentric circles */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.5 }}
+          className="mb-12"
+        >
+          <img 
+            src={harKerroksetImg} 
+            alt="HAR Tutkimusalat kerrokset - Ydin, Tuki, Konteksti" 
+            className="w-full max-w-4xl mx-auto rounded-2xl shadow-lg"
+          />
+        </motion.div>
+
+        {/* Call for researchers */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.6 }}
+          className="bg-accent/10 border-l-4 border-accent rounded-r-xl p-6 md:p-8"
+        >
+          <h3 className="text-xl font-bold text-primary mb-3">
+            Oletko tutkija näillä aloilla?
+          </h3>
+          <p className="text-muted-foreground leading-relaxed">
+            Etsimme tutkijoita sparraamaan ja kommentoimaan HAR-viitekehystä. 
+            Jos tunnistat itsesi näistä tutkimusaloista, otamme mielellämme yhteyttä.
+          </p>
         </motion.div>
       </div>
     </section>
