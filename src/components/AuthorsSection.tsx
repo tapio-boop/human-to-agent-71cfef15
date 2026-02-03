@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
 import { Linkedin } from "lucide-react";
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import tapioImage from "@/assets/tapio-nissila.jpeg";
 import niklasImage from "@/assets/niklas-nordling.jpeg";
 
@@ -47,12 +46,13 @@ export function AuthorsSection() {
               transition={{ duration: 0.5, delay: index * 0.1 }}
               className="bg-card rounded-xl p-6 border border-border text-center"
             >
-              <Avatar className="w-20 h-20 mx-auto mb-4 border-2 border-primary/20">
-                <AvatarImage src={author.image} alt={author.name} className="object-cover" />
-                <AvatarFallback className="bg-primary/10 text-primary text-xl font-bold">
-                  {author.name.split(" ").map(n => n[0]).join("")}
-                </AvatarFallback>
-              </Avatar>
+              <div className="w-20 h-20 mx-auto mb-4 rounded-full overflow-hidden border-2 border-primary/20">
+                <img 
+                  src={author.image} 
+                  alt={author.name}
+                  className="w-full h-full object-cover"
+                />
+              </div>
               <h3 className="text-lg font-semibold text-primary mb-1">
                 {author.name}
               </h3>
