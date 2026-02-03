@@ -1,5 +1,8 @@
 import { motion } from "framer-motion";
 import { Linkedin } from "lucide-react";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import tapioImage from "@/assets/tapio-nissila.jpeg";
+import niklasImage from "@/assets/niklas-nordling.jpeg";
 
 const authors = [
   {
@@ -7,12 +10,14 @@ const authors = [
     role: "Kirjoittaja",
     background: "Teknologia-alan kasvujohtaja, ex-konsultti, tietokirjailija",
     linkedin: "https://linkedin.com/in/tapio-nissila",
+    image: tapioImage,
   },
   {
     name: "Niklas Nordling",
     role: "Kirjoittaja",
     background: "PhD (Psykologia), yrittäjä, ex-Nokia",
     linkedin: "https://www.linkedin.com/in/niklas-nordling-8ba2224/",
+    image: niklasImage,
   },
 ];
 
@@ -42,11 +47,12 @@ export function AuthorsSection() {
               transition={{ duration: 0.5, delay: index * 0.1 }}
               className="bg-card rounded-xl p-6 border border-border text-center"
             >
-              <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
-                <span className="text-2xl font-bold text-primary">
+              <Avatar className="w-20 h-20 mx-auto mb-4 border-2 border-primary/20">
+                <AvatarImage src={author.image} alt={author.name} className="object-cover" />
+                <AvatarFallback className="bg-primary/10 text-primary text-xl font-bold">
                   {author.name.split(" ").map(n => n[0]).join("")}
-                </span>
-              </div>
+                </AvatarFallback>
+              </Avatar>
               <h3 className="text-lg font-semibold text-primary mb-1">
                 {author.name}
               </h3>
