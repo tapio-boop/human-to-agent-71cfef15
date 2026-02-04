@@ -7,14 +7,14 @@ const authors = [
   {
     name: "Tapio Nissilä",
     role: "Kirjoittaja",
-    background: "Teknologia-alan kasvujohtaja, ex-konsultti, tietokirjailija",
+    background: "Teknologia- ja liiketoiminnan johtaminen",
     linkedin: "https://linkedin.com/in/tapio-nissila",
     image: tapioImage,
   },
   {
     name: "Niklas Nordling",
     role: "Kirjoittaja",
-    background: "PhD (Psykologia), yrittäjä, ex-Nokia",
+    background: "Johtaminen ja käyttäytymistieteet",
     linkedin: "https://www.linkedin.com/in/niklas-nordling-8ba2224/",
     image: niklasImage,
   },
