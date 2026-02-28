@@ -132,9 +132,9 @@ export function AssessmentResult({ data, onRestart }: Props) {
 
   const balancePercent = Math.round((1 - meta.timeSaving) * 100);
 
-  // Use design system colors for the chart
+  // Use brand colors for the chart: Navy + Coral
   const primaryColor = "hsl(223, 43%, 21%)";
-  const accentColor = meta.colorHsl;
+  const accentColor = "hsl(351, 76%, 61%)";
 
   return (
     <motion.div
