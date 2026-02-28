@@ -1,7 +1,6 @@
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import { AlertTriangle } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import type { AssessmentData } from "../AssessmentWizard";
 
 interface Props {
@@ -14,14 +13,8 @@ interface Props {
 export function StepFrequency({ data, updateData, onNext, onRestart }: Props) {
   const handleFrequencyChange = (value: string) => {
     const freq = parseInt(value);
-    const triggered = freq === 1 && data.repetitionsPerPeriod < 2;
+    const triggered = freq === 1;
     updateData({ frequency: freq, killSwitchTriggered: triggered, continueDespiteKillSwitch: false });
-  };
-
-  const handleRepsChange = (value: string) => {
-    const reps = parseInt(value) || 0;
-    const triggered = data.frequency === 1 && reps < 2;
-    updateData({ repetitionsPerPeriod: reps, killSwitchTriggered: triggered, continueDespiteKillSwitch: false });
   };
 
   const showKillSwitch = data.killSwitchTriggered && !data.continueDespiteKillSwitch;
@@ -39,41 +32,28 @@ export function StepFrequency({ data, updateData, onNext, onRestart }: Props) {
             Kuinka usein tämä tehtävä toistuu?
           </label>
           <RadioGroup value={String(data.frequency)} onValueChange={handleFrequencyChange} className="space-y-2">
-            <div className="flex items-center space-x-3 p-3 rounded-lg border border-border hover:bg-muted/50 transition-colors">
-              <RadioGroupItem value="1" id="freq-1" />
+            <div className="flex items-start space-x-3 p-3 rounded-lg border border-border hover:bg-muted/50 transition-colors">
+              <RadioGroupItem value="1" id="freq-1" className="mt-0.5" />
               <label htmlFor="freq-1" className="text-sm cursor-pointer flex-1">
                 <span className="font-medium">Harvoin</span>
-                <span className="text-muted-foreground ml-1">— kuukausittain tai harvemmin</span>
+                <span className="text-muted-foreground block">Muutaman kerran kuukaudessa tai harvemmin</span>
               </label>
             </div>
-            <div className="flex items-center space-x-3 p-3 rounded-lg border border-border hover:bg-muted/50 transition-colors">
-              <RadioGroupItem value="2" id="freq-2" />
+            <div className="flex items-start space-x-3 p-3 rounded-lg border border-border hover:bg-muted/50 transition-colors">
+              <RadioGroupItem value="2" id="freq-2" className="mt-0.5" />
               <label htmlFor="freq-2" className="text-sm cursor-pointer flex-1">
-                <span className="font-medium">Usein</span>
-                <span className="text-muted-foreground ml-1">— viikoittain</span>
+                <span className="font-medium">Viikoittain</span>
+                <span className="text-muted-foreground block">Useita kertoja viikossa</span>
               </label>
             </div>
-            <div className="flex items-center space-x-3 p-3 rounded-lg border border-border hover:bg-muted/50 transition-colors">
-              <RadioGroupItem value="3" id="freq-3" />
+            <div className="flex items-start space-x-3 p-3 rounded-lg border border-border hover:bg-muted/50 transition-colors">
+              <RadioGroupItem value="3" id="freq-3" className="mt-0.5" />
               <label htmlFor="freq-3" className="text-sm cursor-pointer flex-1">
-                <span className="font-medium">Jatkuvasti</span>
-                <span className="text-muted-foreground ml-1">— päivittäin tai useammin</span>
+                <span className="font-medium">Päivittäin tai useammin</span>
+                <span className="text-muted-foreground block">Jatkuvasti toistuva, usein päivän aikana</span>
               </label>
             </div>
           </RadioGroup>
-        </div>
-
-        <div>
-          <label className="text-sm font-medium text-foreground mb-1.5 block">
-            Kuinka monta kertaa per toistumisjakso?
-          </label>
-          <Input
-            type="number"
-            min={1}
-            value={data.repetitionsPerPeriod}
-            onChange={(e) => handleRepsChange(e.target.value)}
-            className="max-w-[200px]"
-          />
         </div>
       </div>
 
@@ -84,7 +64,7 @@ export function StepFrequency({ data, updateData, onNext, onRestart }: Props) {
             <div>
               <p className="text-sm font-semibold text-foreground">ROI-varoitus</p>
               <p className="text-sm text-muted-foreground mt-1">
-                Tämä tehtävä toistuu niin harvoin, että agentin rakentaminen siihen on todennäköisesti negatiivinen ROI-investointi. Suosittelemme pitämään tämän ihmistyönä.
+                Harvoin toistuvan tehtävän automatisoinnin takaisinmaksuaika on tyypillisesti pitkä. Agentti voi silti parantaa työn laatua ja vapauttaa aikaa muihin tehtäviin.
               </p>
             </div>
           </div>

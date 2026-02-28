@@ -16,7 +16,6 @@ export interface AssessmentData {
   industry: string;
   // Step 1
   frequency: number; // 1-3
-  repetitionsPerPeriod: number;
   killSwitchTriggered: boolean;
   continueDespiteKillSwitch: boolean;
   // Step 2
@@ -39,7 +38,6 @@ const initialData: AssessmentData = {
   taskDescription: "",
   industry: "myynti",
   frequency: 2,
-  repetitionsPerPeriod: 5,
   killSwitchTriggered: false,
   continueDespiteKillSwitch: false,
   standardization: 2,
