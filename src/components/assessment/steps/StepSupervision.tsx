@@ -8,12 +8,12 @@ interface Props {
   updateData: (partial: Partial<AssessmentData>) => void;
 }
 
-const supervisionLabels: Record<number, { label: string; color: string }> = {
-  1: { label: "Audit", color: "#22c55e" },
-  2: { label: "Monitor", color: "#84cc16" },
-  3: { label: "Approve", color: "#eab308" },
-  4: { label: "Collaborate", color: "#f97316" },
-  5: { label: "Command", color: "#ef4444" },
+const supervisionLabels: Record<number, { label: string; colorHsl: string }> = {
+  1: { label: "Audit", colorHsl: "hsl(142, 71%, 45%)" },
+  2: { label: "Monitor", colorHsl: "hsl(84, 81%, 44%)" },
+  3: { label: "Approve", colorHsl: "hsl(45, 93%, 47%)" },
+  4: { label: "Collaborate", colorHsl: "hsl(25, 95%, 53%)" },
+  5: { label: "Command", colorHsl: "hsl(0, 84%, 60%)" },
 };
 
 function calculateSupervision(data: AssessmentData): number {
@@ -119,12 +119,12 @@ export function StepSupervision({ data, updateData }: Props) {
       </div>
 
       {/* Recommendation */}
-      <div className="bg-background-muted border border-border rounded-xl p-5">
+      <div className="bg-muted border border-border rounded-xl p-5">
         <p className="text-sm text-muted-foreground mb-2">Suositeltu valvontataso:</p>
         <div className="flex items-center gap-3">
           <Badge
             className="text-sm px-3 py-1"
-            style={{ backgroundColor: rec.color, color: "#fff", border: "none" }}
+            style={{ backgroundColor: rec.colorHsl, color: "#fff", border: "none" }}
           >
             {rec.label}
           </Badge>
