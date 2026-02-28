@@ -9,11 +9,11 @@ interface Props {
 }
 
 const supervisionLabels: Record<number, { label: string; colorHsl: string }> = {
-  1: { label: "Audit", colorHsl: "hsl(142, 71%, 45%)" },
-  2: { label: "Monitor", colorHsl: "hsl(84, 81%, 44%)" },
-  3: { label: "Approve", colorHsl: "hsl(45, 93%, 47%)" },
-  4: { label: "Collaborate", colorHsl: "hsl(25, 95%, 53%)" },
-  5: { label: "Command", colorHsl: "hsl(0, 84%, 60%)" },
+  1: { label: "Audit", colorHsl: "hsl(231, 43%, 55%)" },
+  2: { label: "Monitor", colorHsl: "hsl(231, 43%, 55%)" },
+  3: { label: "Approve", colorHsl: "hsl(291, 43%, 50%)" },
+  4: { label: "Collaborate", colorHsl: "hsl(351, 76%, 61%)" },
+  5: { label: "Command", colorHsl: "hsl(351, 76%, 45%)" },
 };
 
 function calculateSupervision(data: AssessmentData): number {

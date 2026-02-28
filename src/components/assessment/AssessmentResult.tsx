@@ -5,9 +5,9 @@ import { AlertTriangle, RotateCcw, Calendar, Mail } from "lucide-react";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from "recharts";
 import type { AssessmentData } from "./AssessmentWizard";
 
+// Brand-aligned supervision colors using Navy→Indigo→Coral spectrum
 const supervisionMeta: Record<number, {
   label: string;
-  colorClass: string;
   colorHsl: string;
   timeSaving: number;
   qualityMultiplier: number;
@@ -20,8 +20,7 @@ const supervisionMeta: Record<number, {
 }> = {
   1: {
     label: "Audit",
-    colorClass: "bg-emerald-500",
-    colorHsl: "hsl(142, 71%, 45%)",
+    colorHsl: "hsl(231, 43%, 55%)", // Indigo
     timeSaving: 0.85,
     qualityMultiplier: 1.10,
     monthlyCost: 400,
@@ -33,8 +32,7 @@ const supervisionMeta: Record<number, {
   },
   2: {
     label: "Monitor",
-    colorClass: "bg-lime-500",
-    colorHsl: "hsl(84, 81%, 44%)",
+    colorHsl: "hsl(231, 43%, 55%)", // Indigo
     timeSaving: 0.70,
     qualityMultiplier: 1.15,
     monthlyCost: 600,
@@ -46,8 +44,7 @@ const supervisionMeta: Record<number, {
   },
   3: {
     label: "Approve",
-    colorClass: "bg-yellow-500",
-    colorHsl: "hsl(45, 93%, 47%)",
+    colorHsl: "hsl(291, 43%, 50%)", // Navy-Coral blend
     timeSaving: 0.55,
     qualityMultiplier: 1.20,
     monthlyCost: 800,
@@ -59,8 +56,7 @@ const supervisionMeta: Record<number, {
   },
   4: {
     label: "Collaborate",
-    colorClass: "bg-orange-500",
-    colorHsl: "hsl(25, 95%, 53%)",
+    colorHsl: "hsl(351, 76%, 61%)", // Coral
     timeSaving: 0.40,
     qualityMultiplier: 1.30,
     monthlyCost: 1000,
@@ -72,8 +68,7 @@ const supervisionMeta: Record<number, {
   },
   5: {
     label: "Command",
-    colorClass: "bg-red-500",
-    colorHsl: "hsl(0, 84%, 60%)",
+    colorHsl: "hsl(351, 76%, 45%)", // Dark Coral
     timeSaving: 0.15,
     qualityMultiplier: 1.15,
     monthlyCost: 300,
@@ -239,8 +234,8 @@ export function AssessmentResult({ data, onRestart }: Props) {
             </div>
             <div className="h-3 rounded-full bg-muted overflow-hidden flex">
               <div
-                className="h-full rounded-l-full transition-all"
-                style={{ width: `${100 - balancePercent}%`, backgroundColor: meta.colorHsl }}
+                className="h-full rounded-l-full transition-all bg-secondary"
+                style={{ width: `${100 - balancePercent}%` }}
               />
               <div
                 className="h-full rounded-r-full bg-primary"
@@ -248,7 +243,7 @@ export function AssessmentResult({ data, onRestart }: Props) {
               />
             </div>
             <div className="flex justify-between text-xs mt-1">
-              <span className="font-medium" style={{ color: meta.colorHsl }}>{100 - balancePercent}%</span>
+              <span className="font-medium text-secondary">{100 - balancePercent}%</span>
               <span className="font-medium text-primary">{balancePercent}%</span>
             </div>
           </div>
@@ -285,19 +280,19 @@ export function AssessmentResult({ data, onRestart }: Props) {
               </tr>
               <tr className="border-b border-border">
                 <td className="py-2">Nettosäästö <span className="text-xs text-muted-foreground">(sis. laadulliset hyödyt)</span></td>
-                <td className={`text-right py-2 font-bold ${netSaving6m >= 0 ? "text-emerald-600" : "text-destructive"}`}>
+                <td className={`text-right py-2 font-bold ${netSaving6m >= 0 ? "text-secondary" : "text-destructive"}`}>
                   {Math.round(netSaving6m).toLocaleString("fi-FI")} €
                 </td>
-                <td className={`text-right py-2 font-bold ${netSaving12m >= 0 ? "text-emerald-600" : "text-destructive"}`}>
+                <td className={`text-right py-2 font-bold ${netSaving12m >= 0 ? "text-secondary" : "text-destructive"}`}>
                   {Math.round(netSaving12m).toLocaleString("fi-FI")} €
                 </td>
               </tr>
               <tr>
                 <td className="py-2">ROI</td>
-                <td className={`text-right py-2 font-bold ${roi6m >= 0 ? "text-emerald-600" : "text-destructive"}`}>
+                <td className={`text-right py-2 font-bold ${roi6m >= 0 ? "text-secondary" : "text-destructive"}`}>
                   {Math.round(roi6m)}%
                 </td>
-                <td className={`text-right py-2 font-bold ${roi12m >= 0 ? "text-emerald-600" : "text-destructive"}`}>
+                <td className={`text-right py-2 font-bold ${roi12m >= 0 ? "text-secondary" : "text-destructive"}`}>
                   {Math.round(roi12m)}%
                 </td>
               </tr>
