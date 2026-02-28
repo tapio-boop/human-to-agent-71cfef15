@@ -102,22 +102,87 @@ export default function ModelPage() {
               </div>
             </motion.div>
 
-            <motion.div
+            <motion.h2
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="bg-background-muted border border-border rounded-xl p-6 md:p-8"
+              className="text-2xl md:text-3xl font-extrabold tracking-tighter text-primary mb-6"
             >
-              <h3 className="text-xl font-bold text-primary mb-4">Resursointi lopputuloksena</h3>
-              <div className="space-y-3 text-sm text-foreground">
-                <p>
-                  <strong>Kun prosessi on jatkuva ja korkeasti standardoitavissa</strong> ja valvonta voidaan asettaa Audit-tasolle, matematiikka on selvä: suuri määrä agenttiresurssia, minimaalinen ihmisresurssi — lähinnä laadunvarmistus.
-                </p>
-                <p>
-                  <strong>Kun prosessi on jatkuva mutta standardoitavuus matala</strong>, tuloksena ei ole umpikuja vaan yhteistyömalli — agentti apupilottina, ihminen ohjaa. Tämä on kognitiivisen ergonomian optimointia.
-                </p>
-              </div>
-            </motion.div>
+              Mitä malli paljastaa?
+            </motion.h2>
+
+            <div className="grid md:grid-cols-2 gap-6">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="bg-background-muted border border-border rounded-xl p-6"
+              >
+                <h3 className="text-lg font-bold text-primary mb-3">📊 Resursointi lopputuloksena</h3>
+                <div className="space-y-2 text-sm text-foreground">
+                  <p>
+                    <strong>Korkea toistuvuus + standardoitavuus + Audit-valvonta</strong> → suuri agenttiresurssi, minimaalinen ihmisresurssi.
+                  </p>
+                  <p>
+                    <strong>Korkea toistuvuus + matala standardoitavuus</strong> → yhteistyömalli, ei umpikuja. Agentti apupilottina, ihminen ohjaa.
+                  </p>
+                </div>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.1 }}
+                className="bg-background-muted border border-border rounded-xl p-6"
+              >
+                <h3 className="text-lg font-bold text-primary mb-3">🧠 Kognitiivinen ergonomia</h3>
+                <div className="space-y-2 text-sm text-foreground">
+                  <p>
+                    Malli osoittaa, missä agentit <strong>keventävät kognitiivista kuormaa</strong> — ja missä ihmisen ajattelu on korvaamatonta.
+                  </p>
+                  <p>
+                    Audit-tasolla agentti vapauttaa ihmisen rutiineista. Command-tasolla ihminen käyttää syvää asiantuntemustaan, agentti toimii muistina ja tiedonkerääjänä.
+                  </p>
+                </div>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.15 }}
+                className="bg-background-muted border border-border rounded-xl p-6"
+              >
+                <h3 className="text-lg font-bold text-primary mb-3">🎯 Johtaminen</h3>
+                <div className="space-y-2 text-sm text-foreground">
+                  <p>
+                    Valvonta-akseli on samalla <strong>johtamisen akseli</strong>. Se vastaa kysymykseen: miten johdan työtä, jossa osa tekijöistä on agentteja?
+                  </p>
+                  <p>
+                    Audit = delegointi ja laadunvarmistus. Collaborate = tiimityö agentin kanssa. Command = strateginen päätöksenteko, jossa agentti on tukifunktio.
+                  </p>
+                </div>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.2 }}
+                className="bg-background-muted border border-border rounded-xl p-6"
+              >
+                <h3 className="text-lg font-bold text-primary mb-3">👤 Ihmisen rooli</h3>
+                <div className="space-y-2 text-sm text-foreground">
+                  <p>
+                    Malli tekee näkyväksi, ettei ihminen katoa — <strong>rooli muuttuu</strong>. Kuution eri osissa ihminen on eri asiassa:
+                  </p>
+                  <p>
+                    <strong>Laadunvarmistaja</strong> (Audit), <strong>valmentaja</strong> (Monitor), <strong>portinvartija</strong> (Approve), <strong>tiimikaveri</strong> (Collaborate) tai <strong>päätöksentekijä</strong> (Command).
+                  </p>
+                </div>
+              </motion.div>
+            </div>
           </div>
         </section>
       </main>
