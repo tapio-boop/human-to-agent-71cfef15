@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { AlertTriangle, RotateCcw, Calendar } from "lucide-react";
+import { AlertTriangle, RotateCcw, Calendar, Mail } from "lucide-react";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from "recharts";
 import type { AssessmentData } from "./AssessmentWizard";
 
@@ -87,6 +87,36 @@ const supervisionMeta: Record<number, {
 
 const frequencyLabels: Record<number, string> = { 1: "Harvoin", 2: "Viikoittain", 3: "Päivittäin" };
 const standardizationLabels: Record<number, string> = { 1: "Matala", 2: "Keskimääräinen", 3: "Korkea" };
+
+function buildMailtoLink(
+  data: AssessmentData,
+  meta: typeof supervisionMeta[1],
+  roi: { cost6m: number; cost12m: number; totalNew6m: number; totalNew12m: number; netSaving6m: number; netSaving12m: number; roi6m: number; roi12m: number; paybackMonths: number }
+) {
+  const fmt = (n: number) => Math.round(n).toLocaleString("fi-FI");
+  const subject = encodeURIComponent(`HAR 2.0 Assessment — ${data.taskDescription || "Tulokset"}`);
+  const body = encodeURIComponent(
+    `HAR 2.0 Assessment — Tulokset\n` +
+    `${data.taskDescription ? `Tehtävä: ${data.taskDescription}\n` : ""}` +
+    `Toimiala: ${data.industry}\n\n` +
+    `--- HAR 2.0 -profiili ---\n` +
+    `Toistuvuus: ${frequencyLabels[data.frequency]}\n` +
+    `Standardoitavuus: ${standardizationLabels[data.standardization]}\n` +
+    `Valvontataso: ${meta.label}\n\n` +
+    `--- Yhteistyömalli ---\n` +
+    `Ihmisen rooli: ${meta.humanRole}\n` +
+    `Agentin rooli: ${meta.agentRole}\n` +
+    `Ihmisen aika: ${meta.humanTimePercent}\n\n` +
+    `--- ROI-laskelma ---\n` +
+    `Nykyiset kustannukset: ${fmt(roi.cost6m)} € (6 kk) / ${fmt(roi.cost12m)} € (12 kk)\n` +
+    `Uudet kustannukset: ${fmt(roi.totalNew6m)} € (6 kk) / ${fmt(roi.totalNew12m)} € (12 kk)\n` +
+    `Nettosäästö: ${fmt(roi.netSaving6m)} € (6 kk) / ${fmt(roi.netSaving12m)} € (12 kk)\n` +
+    `ROI: ${Math.round(roi.roi6m)}% (6 kk) / ${Math.round(roi.roi12m)}% (12 kk)\n` +
+    `Takaisinmaksuaika: ${roi.paybackMonths === Infinity ? "Ei saavutettavissa" : `${roi.paybackMonths} kk`}\n\n` +
+    `---\nLue lisää: https://h2a.fi/assessment`
+  );
+  return `mailto:?subject=${subject}&body=${body}`;
+}
 
 interface Props {
   data: AssessmentData;
@@ -319,11 +349,17 @@ export function AssessmentResult({ data, onRestart }: Props) {
       {/* D) CTA */}
       <div className="bg-card border border-border rounded-xl p-6 text-center space-y-4">
         <h3 className="text-lg font-bold text-primary">Mitä seuraavaksi?</h3>
-        <div className="flex flex-col sm:flex-row gap-3 justify-center">
+        <div className="flex flex-col sm:flex-row gap-3 justify-center flex-wrap">
           <Button size="lg" asChild>
             <a href="https://calendly.com" target="_blank" rel="noopener noreferrer">
               <Calendar className="w-4 h-4 mr-2" />
               Varaa 30 min sparraus
+            </a>
+          </Button>
+          <Button variant="outline" size="lg" asChild>
+            <a href={buildMailtoLink(data, meta, { cost6m, cost12m, totalNew6m, totalNew12m, netSaving6m, netSaving12m, roi6m, roi12m, paybackMonths })}>
+              <Mail className="w-4 h-4 mr-2" />
+              Lähetä tulokset sähköpostilla
             </a>
           </Button>
           <Button variant="outline" size="lg" onClick={onRestart}>
