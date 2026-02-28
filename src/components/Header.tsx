@@ -8,6 +8,8 @@ const navItems = [
   { label: "9 uskomusta", href: "#uskomukset" },
   { label: "Tieteelliset perusteet", href: "#tieteelliset" },
   { label: "Osallistu", href: "#osallistu" },
+  { label: "Malli", href: "/model" },
+  { label: "Arvioi tehtäväsi", href: "/assessment" },
 ];
 
 export function Header() {
