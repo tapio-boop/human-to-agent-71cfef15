@@ -7,6 +7,7 @@ import { RoleArchitectureCard } from "@/components/tools/RoleArchitectureCard";
 import { EmailCapture } from "@/components/tools/EmailCapture";
 import { OversightMode } from "@/lib/har-tools-data";
 import { RotateCcw } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 
 const STORAGE_KEY = "har-oversight-compass";
 
@@ -144,11 +145,34 @@ export default function OversightCompass() {
     setAnswers(next);
   };
 
-  const handleNext = () => {
+  const handleNext = async () => {
     if (currentQ < questions.length - 1) {
       setCurrentQ(currentQ + 1);
     } else {
       setStep("results");
+      try {
+        const finalMode = determineMode(answers as string[]);
+        await supabase.from("tool_results").insert({
+          tool_name: "valvontakompassi",
+          answers: { processName, answers },
+          result: { mode: finalMode, processName },
+        });
+      } catch (e) {
+        console.error("Failed to save results:", e);
+      }
+    }
+  };
+
+  const handleEmailSubmit = async (email: string) => {
+    try {
+      await supabase.from("tool_results").insert({
+        tool_name: "valvontakompassi",
+        email,
+        answers: { processName, answers },
+        result: { mode: mode!, processName },
+      });
+    } catch (e) {
+      console.error("Failed to save email results:", e);
     }
   };
 
@@ -269,7 +293,7 @@ export default function OversightCompass() {
               whyText={generateWhyText(answers as string[], mode)}
             />
             <div className="mt-8">
-              <EmailCapture />
+              <EmailCapture onSubmit={handleEmailSubmit} />
             </div>
             <div className="mt-6 text-center">
               <Button onClick={handleReset} variant="outline" className="gap-2">

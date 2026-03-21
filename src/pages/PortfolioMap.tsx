@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { ToolLayout } from "@/components/tools/ToolLayout";
 import { EmailCapture } from "@/components/tools/EmailCapture";
 import { Plus, X, RotateCcw, ArrowRight } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 
 const STORAGE_KEY = "har-portfolio-map";
 
@@ -87,6 +88,32 @@ export default function PortfolioMap() {
     setProcesses([]);
     setStep("input");
     setNewName("");
+  };
+
+  const handleShowResults = async () => {
+    setStep("results");
+    try {
+      await supabase.from("tool_results").insert({
+        tool_name: "portfoliokartta",
+        answers: { processes: processes.map(p => ({ name: p.name, repetitiveness: p.repetitiveness, standardizability: p.standardizability })) },
+        result: { priorityOrder: sortedByPriority.map(p => p.name) },
+      });
+    } catch (e) {
+      console.error("Failed to save results:", e);
+    }
+  };
+
+  const handleEmailSubmit = async (email: string) => {
+    try {
+      await supabase.from("tool_results").insert({
+        tool_name: "portfoliokartta",
+        email,
+        answers: { processes: processes.map(p => ({ name: p.name, repetitiveness: p.repetitiveness, standardizability: p.standardizability })) },
+        result: { priorityOrder: sortedByPriority.map(p => p.name) },
+      });
+    } catch (e) {
+      console.error("Failed to save email results:", e);
+    }
   };
 
   const sortedByPriority = [...processes].sort((a, b) => {
@@ -184,7 +211,7 @@ export default function PortfolioMap() {
             <p className="text-sm text-muted-foreground mb-4">{processes.length}/15 prosessia</p>
 
             <Button
-              onClick={() => setStep("results")}
+              onClick={handleShowResults}
               disabled={processes.length < 3}
               className="gap-2 bg-accent hover:bg-accent/90 text-accent-foreground"
             >
@@ -264,7 +291,7 @@ export default function PortfolioMap() {
               </div>
             </div>
 
-            <EmailCapture />
+            <EmailCapture onSubmit={handleEmailSubmit} />
 
             <div className="mt-6 text-center flex gap-3 justify-center">
               <Button onClick={() => setStep("input")} variant="outline">

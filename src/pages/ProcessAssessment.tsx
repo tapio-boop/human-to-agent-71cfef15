@@ -7,130 +7,15 @@ import { RoleArchitectureCard } from "@/components/tools/RoleArchitectureCard";
 import { EmailCapture } from "@/components/tools/EmailCapture";
 import { OversightMode } from "@/lib/har-tools-data";
 import { AlertTriangle, RotateCcw } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 
 const STORAGE_KEY = "har-process-assessment";
 
-interface RadioQuestion {
-  question: string;
-  options: { label: string; value: number }[];
-}
-
-const repetitivenessQuestions: RadioQuestion[] = [
-  {
-    question: "Kuinka usein tämä prosessi toistetaan?",
-    options: [
-      { label: "Harvoin (muutaman kerran vuodessa)", value: 0 },
-      { label: "Kuukausittain", value: 1 },
-      { label: "Viikoittain", value: 2 },
-      { label: "Päivittäin tai useammin", value: 3 },
-    ],
-  },
-  {
-    question: "Kuinka samankaltainen prosessi on joka kerralla?",
-    options: [
-      { label: "Joka kerta erilainen", value: 0 },
-      { label: "Perusrakenne sama, yksityiskohdat vaihtelevat", value: 1 },
-      { label: "Pääosin samanlainen, pieniä poikkeuksia", value: 2 },
-      { label: "Lähes identtinen joka kerta", value: 3 },
-    ],
-  },
-  {
-    question: "Kuinka suuri volyymi prosessilla on?",
-    options: [
-      { label: "Yksittäisiä tapauksia", value: 0 },
-      { label: "Kymmeniä kuukaudessa", value: 1 },
-      { label: "Satoja kuukaudessa", value: 2 },
-      { label: "Tuhansia tai enemmän", value: 3 },
-    ],
-  },
-];
-
-const standardizabilityQuestions: RadioQuestion[] = [
-  {
-    question: "Onko prosessi dokumentoitu?",
-    options: [
-      { label: "Ei dokumentaatiota", value: 0 },
-      { label: "Osittain dokumentoitu", value: 1 },
-      { label: "Hyvin dokumentoitu", value: 2 },
-      { label: "Täysin standardoitu ohjeistus", value: 3 },
-    ],
-  },
-  {
-    question: "Vaatiiko prosessi tilannekohtaista harkintaa?",
-    options: [
-      { label: "Jatkuvasti — jokainen tapaus on uniikki", value: 0 },
-      { label: "Usein — poikkeuksia tulee säännöllisesti", value: 1 },
-      { label: "Harvoin — suurin osa on rutiinia", value: 2 },
-      { label: "Ei koskaan — puhtaasti sääntöpohjainen", value: 3 },
-    ],
-  },
-  {
-    question: "Ovatko prosessin syötteet ja tuotokset selkeitä?",
-    options: [
-      { label: "Epämääräisiä ja vaihtelevia", value: 0 },
-      { label: "Pääosin selkeitä, mutta poikkeuksia on", value: 1 },
-      { label: "Selkeästi määriteltyjä", value: 2 },
-      { label: "Täysin strukturoituja ja mitattavia", value: 3 },
-    ],
-  },
-  {
-    question: "Kuinka paljon luovuutta tai empatiaa prosessi vaatii?",
-    options: [
-      { label: "Paljon — ihmissuhdetaitoja tai luovaa ongelmanratkaisua", value: 0 },
-      { label: "Jonkin verran — tarvitaan ajoittain", value: 1 },
-      { label: "Vähän — lähinnä teknistä suorittamista", value: 2 },
-      { label: "Ei lainkaan", value: 3 },
-    ],
-  },
-  {
-    question: "Onko prosessin data digitaalisessa muodossa?",
-    options: [
-      { label: "Pääosin analogista tai epästrukturoitua", value: 0 },
-      { label: "Osittain digitaalista", value: 1 },
-      { label: "Pääosin digitaalista", value: 2 },
-      { label: "Täysin digitaalista ja integroitua", value: 3 },
-    ],
-  },
-];
-
-const oversightQuestions = [
-  {
-    question: "Kuinka suuri on yksittäisen virheen vaikutus?",
-    options: [
-      { label: "A) Merkityksetön — korjattavissa helposti", value: "low" },
-      { label: "B) Kohtalainen — vaatii korjaustoimenpiteitä", value: "medium" },
-      { label: "C) Merkittävä — taloudellinen tai oikeudellinen riski", value: "high" },
-      { label: "D) Kriittinen — peruuttamaton vahinko", value: "critical" },
-    ],
-  },
-  {
-    question: "Onko prosessi säännelty tai auditoinnin piirissä?",
-    options: [
-      { label: "A) Ei sääntelyä", value: "none" },
-      { label: "B) Kevyt sääntely tai sisäiset ohjeet", value: "light" },
-      { label: "C) Merkittävä sääntely (esim. GDPR, finanssisääntely)", value: "heavy" },
-      { label: "D) Kriittinen sääntely (esim. terveydenhuolto, turvallisuus)", value: "critical" },
-    ],
-  },
-  {
-    question: "Onko tekoälyagentti jo osoittanut luotettavuutensa tässä prosessissa?",
-    options: [
-      { label: "A) Ei kokemusta — täysin uusi käyttökohde", value: "none" },
-      { label: "B) Pilotoitu — alustavat tulokset lupaavia", value: "piloted" },
-      { label: "C) Tuotannossa — toiminut luotettavasti kuukausia", value: "production" },
-      { label: "D) Vakiintunut — pitkä historia luotettavasta suorituksesta", value: "established" },
-    ],
-  },
-  {
-    question: "Kuinka nopeasti prosessin pitää reagoida?",
-    options: [
-      { label: "A) Ei kiire — päivien tai viikkojen aikajänne", value: "slow" },
-      { label: "B) Kohtuullinen — tuntien aikajänne", value: "moderate" },
-      { label: "C) Nopea — minuuttien aikajänne", value: "fast" },
-      { label: "D) Reaaliaikainen — sekuntien aikajänne", value: "realtime" },
-    ],
-  },
-];
+type Repetitiveness = "harvoin" | "usein" | "jatkuvasti" | null;
+type StdA = "ei" | "osittain" | "kylla" | null;
+type StdB = "kylla_jatkuvasti" | "joskus" | "ei_juuri" | null;
+type OversightA = "helposti" | "vakava" | null;
+type OversightB = "ei" | "kylla" | null;
 
 const hoursOptions = [
   { label: "Alle 5 tuntia", value: "alle5" },
@@ -139,53 +24,53 @@ const hoursOptions = [
   { label: "Yli 40 tuntia", value: "yli40" },
 ];
 
-function determineOversightMode(answers: string[]): OversightMode {
-  const [impact, regulation, trust, speed] = answers;
-  
-  // High risk + heavy regulation → Command or Approve
-  if (impact === "critical" || regulation === "critical") {
-    if (trust === "none" || trust === "piloted") return "command";
-    return "approve";
-  }
-  
-  if (impact === "high" || regulation === "heavy") {
-    if (trust === "none") return "command";
-    if (trust === "piloted") return "approve";
-    return "approve";
-  }
-  
-  // Medium risk
-  if (impact === "medium" || regulation === "light") {
-    if (trust === "established" || trust === "production") return "monitor";
-    if (trust === "piloted") return "approve";
-    return "collaborate";
-  }
-  
-  // Low risk
-  if (trust === "established") return "audit";
-  if (trust === "production") return "monitor";
-  if (trust === "piloted") return "approve";
-  
-  // Speed factor
-  if (speed === "realtime" || speed === "fast") {
-    if (trust === "production" || trust === "established") return "monitor";
-  }
-  
-  return "collaborate";
+function determineMode(
+  repetitiveness: Repetitiveness,
+  stdA: StdA,
+  stdB: StdB,
+  ovA: OversightA,
+  ovB: OversightB
+): OversightMode {
+  // Low standardizability → Collaborate
+  if (stdA === "ei" || stdB === "kylla_jatkuvasti") return "collaborate";
+
+  // Medium standardizability → Approve (default for moderate)
+  if (stdA === "osittain" && stdB === "joskus") return "approve";
+
+  // High standardizability → check oversight (Step 3)
+  if (ovA === "vakava" || ovB === "kylla") return "approve";
+
+  // Low risk + high standardizability → Monitor or Audit based on repetitiveness
+  if (repetitiveness === "jatkuvasti") return "audit";
+  return "monitor";
 }
 
-function getStandardizabilityLabel(score: number): { label: string; description: string } {
-  if (score <= 5) return { label: "Matala standardoitavuus", description: "Prosessi vaatii paljon tilannekohtaista harkintaa ja on vaikea automatisoida sellaisenaan." };
-  if (score <= 10) return { label: "Kohtalainen standardoitavuus", description: "Prosessissa on automatisoitavia osia, mutta se vaatii ihmisen harkintaa kriittisissä kohdissa." };
+function shouldSkipOversight(stdA: StdA, stdB: StdB): boolean {
+  // Low standardizability → skip to results with Collaborate
+  if (stdA === "ei" || stdB === "kylla_jatkuvasti") return true;
+  // Medium standardizability → skip to results with Approve
+  if (stdA === "osittain" && stdB === "joskus") return true;
+  return false;
+}
+
+function getStandardizabilityLabel(stdA: StdA, stdB: StdB): { label: string; description: string } {
+  if (stdA === "ei" || stdB === "kylla_jatkuvasti") {
+    return { label: "Matala standardoitavuus", description: "Prosessi vaatii paljon tilannekohtaista harkintaa ja soveltuu parhaiten yhteistyömalliin." };
+  }
+  if (stdA === "osittain" && stdB === "joskus") {
+    return { label: "Kohtalainen standardoitavuus", description: "Prosessissa on automatisoitavia osia, mutta se vaatii ihmisen harkintaa kriittisissä kohdissa." };
+  }
   return { label: "Korkea standardoitavuus", description: "Prosessi on hyvin strukturoitu ja soveltuu pitkälle menevään automatisointiin." };
 }
 
 export default function ProcessAssessment() {
   const [step, setStep] = useState(0);
   const [processName, setProcessName] = useState("");
-  const [repetitivenessAnswers, setRepetitivenessAnswers] = useState<(number | null)[]>([null, null, null]);
-  const [standardAnswers, setStandardAnswers] = useState<(number | null)[]>([null, null, null, null, null]);
-  const [oversightAnswers, setOversightAnswers] = useState<(string | null)[]>([null, null, null, null]);
+  const [repetitiveness, setRepetitiveness] = useState<Repetitiveness>(null);
+  const [stdA, setStdA] = useState<StdA>(null);
+  const [stdB, setStdB] = useState<StdB>(null);
+  const [ovA, setOvA] = useState<OversightA>(null);
+  const [ovB, setOvB] = useState<OversightB>(null);
   const [hoursAnswer, setHoursAnswer] = useState<string | null>(null);
   const [stopped, setStopped] = useState(false);
 
@@ -197,9 +82,11 @@ export default function ProcessAssessment() {
         const data = JSON.parse(saved);
         setStep(data.step || 0);
         setProcessName(data.processName || "");
-        setRepetitivenessAnswers(data.repetitivenessAnswers || [null, null, null]);
-        setStandardAnswers(data.standardAnswers || [null, null, null, null, null]);
-        setOversightAnswers(data.oversightAnswers || [null, null, null, null]);
+        setRepetitiveness(data.repetitiveness || null);
+        setStdA(data.stdA || null);
+        setStdB(data.stdB || null);
+        setOvA(data.ovA || null);
+        setOvB(data.ovB || null);
         setHoursAnswer(data.hoursAnswer || null);
         setStopped(data.stopped || false);
       } catch {}
@@ -208,42 +95,76 @@ export default function ProcessAssessment() {
 
   useEffect(() => {
     sessionStorage.setItem(STORAGE_KEY, JSON.stringify({
-      step, processName, repetitivenessAnswers, standardAnswers, oversightAnswers, hoursAnswer, stopped,
+      step, processName, repetitiveness, stdA, stdB, ovA, ovB, hoursAnswer, stopped,
     }));
-  }, [step, processName, repetitivenessAnswers, standardAnswers, oversightAnswers, hoursAnswer, stopped]);
+  }, [step, processName, repetitiveness, stdA, stdB, ovA, ovB, hoursAnswer, stopped]);
 
-  const repetitivenessScore = repetitivenessAnswers.reduce<number>((sum, v) => sum + (v ?? 0), 0);
-  const standardScore = standardAnswers.reduce<number>((sum, v) => sum + (v ?? 0), 0);
-  const standardLabel = getStandardizabilityLabel(standardScore);
+  const totalSteps = 4; // steps 1-4
 
-  const oversightMode: OversightMode | null = oversightAnswers.every(a => a !== null)
-    ? determineOversightMode(oversightAnswers as string[])
-    : null;
+  const oversightMode: OversightMode = determineMode(repetitiveness, stdA, stdB, ovA, ovB);
+  const skipOversight = shouldSkipOversight(stdA, stdB);
+  const stdLabel = getStandardizabilityLabel(stdA, stdB);
 
-  const totalSteps = 5; // 0: name, 1: repetitiveness, 2: standardizability, 3: oversight, 4: capacity
-
-  const canProceedStep0 = processName.trim().length > 0;
-  const canProceedStep1 = repetitivenessAnswers.every(a => a !== null);
-  const canProceedStep2 = standardAnswers.every(a => a !== null);
-  const canProceedStep3 = oversightAnswers.every(a => a !== null);
-
-  const handleNext = () => {
-    if (step === 1 && repetitivenessScore <= 1) {
+  const handleStep1Next = () => {
+    if (repetitiveness === "harvoin") {
       setStopped(true);
       return;
     }
-    setStep(step + 1);
+    setStep(2);
+  };
+
+  const handleStep2Next = () => {
+    if (skipOversight) {
+      // Skip step 3, go to capacity (step 4)
+      setStep(4);
+    } else {
+      setStep(3);
+    }
+  };
+
+  const handleStep3Next = () => {
+    setStep(4);
+  };
+
+  const handleShowResults = async () => {
+    setStep(5);
+
+    // Save to database
+    try {
+      await supabase.from("tool_results").insert({
+        tool_name: "prosessiarviointi",
+        answers: { repetitiveness, stdA, stdB, ovA, ovB, hoursAnswer },
+        result: { mode: oversightMode, processName },
+      });
+    } catch (e) {
+      console.error("Failed to save results:", e);
+    }
   };
 
   const handleReset = () => {
     sessionStorage.removeItem(STORAGE_KEY);
     setStep(0);
     setProcessName("");
-    setRepetitivenessAnswers([null, null, null]);
-    setStandardAnswers([null, null, null, null, null]);
-    setOversightAnswers([null, null, null, null]);
+    setRepetitiveness(null);
+    setStdA(null);
+    setStdB(null);
+    setOvA(null);
+    setOvB(null);
     setHoursAnswer(null);
     setStopped(false);
+  };
+
+  const handleEmailSubmit = async (email: string) => {
+    try {
+      await supabase.from("tool_results").insert({
+        tool_name: "prosessiarviointi",
+        email,
+        answers: { repetitiveness, stdA, stdB, ovA, ovB, hoursAnswer },
+        result: { mode: oversightMode, processName },
+      });
+    } catch (e) {
+      console.error("Failed to save email results:", e);
+    }
   };
 
   const isResults = step === 5;
@@ -262,7 +183,7 @@ export default function ProcessAssessment() {
             <p className="text-muted-foreground mb-6">
               Arvioi yksittäinen prosessi kolmella akselilla. Saat kuvauksen siitä, miten ihminen ja
               tekoälyagentti työskentelevät yhdessä tässä prosessissa — ja miten työn luonne muuttuu.
-              Vie noin 5 minuuttia.
+              Vie noin 3 minuuttia.
             </p>
             <Input
               placeholder="esim. Tarjousten luonti, Laskujen käsittely..."
@@ -271,7 +192,7 @@ export default function ProcessAssessment() {
               className="max-w-md text-base"
             />
             <div className="mt-6">
-              <Button onClick={() => setStep(1)} disabled={!canProceedStep0} className="bg-accent hover:bg-accent/90 text-accent-foreground">
+              <Button onClick={() => setStep(1)} disabled={!processName.trim()} className="bg-accent hover:bg-accent/90 text-accent-foreground">
                 Aloita arviointi
               </Button>
             </div>
@@ -298,100 +219,175 @@ export default function ProcessAssessment() {
           </StepWrapper>
         )}
 
-        {/* STEP 1: Repetitiveness */}
+        {/* STEP 1: Repetitiveness (1 question) */}
         {step === 1 && !stopped && (
           <StepWrapper key="step1">
             <h2 className="text-2xl font-bold text-primary mb-1">Toistuvuus</h2>
             <p className="text-sm text-muted-foreground mb-6">Vaihe 1/4 · {processName}</p>
-            <RadioQuestionGroup
-              questions={repetitivenessQuestions}
-              answers={repetitivenessAnswers}
-              onChange={(i, v) => {
-                const next = [...repetitivenessAnswers];
-                next[i] = v;
-                setRepetitivenessAnswers(next);
-              }}
-            />
+            <p className="font-medium text-primary mb-4 text-lg">Kuinka usein tämä prosessi toteutuu?</p>
+            <div className="space-y-3">
+              {([
+                { label: "Harvoin", desc: "Kerran kuukaudessa tai harvemmin", value: "harvoin" as const },
+                { label: "Usein", desc: "Viikoittain tai useita kertoja viikossa", value: "usein" as const },
+                { label: "Jatkuvasti", desc: "Päivittäin tai automaattisesti laukeavana", value: "jatkuvasti" as const },
+              ]).map((opt) => (
+                <label
+                  key={opt.value}
+                  className={`flex flex-col p-4 rounded-xl border cursor-pointer transition-colors ${
+                    repetitiveness === opt.value
+                      ? "border-accent bg-accent/5"
+                      : "border-border hover:border-muted-foreground/30"
+                  }`}
+                >
+                  <div className="flex items-center gap-3">
+                    <input
+                      type="radio"
+                      name="repetitiveness"
+                      checked={repetitiveness === opt.value}
+                      onChange={() => setRepetitiveness(opt.value)}
+                      className="accent-accent"
+                    />
+                    <span className="font-medium text-foreground">{opt.label}</span>
+                  </div>
+                  <span className="text-sm text-muted-foreground ml-7 mt-1">{opt.desc}</span>
+                </label>
+              ))}
+            </div>
             <div className="mt-8 flex gap-3">
               <Button variant="outline" onClick={() => setStep(0)}>Takaisin</Button>
-              <Button onClick={handleNext} disabled={!canProceedStep1} className="bg-accent hover:bg-accent/90 text-accent-foreground">
+              <Button onClick={handleStep1Next} disabled={!repetitiveness} className="bg-accent hover:bg-accent/90 text-accent-foreground">
                 Seuraava
               </Button>
             </div>
           </StepWrapper>
         )}
 
-        {/* STEP 2: Standardizability */}
+        {/* STEP 2: Standardizability (2 questions on same screen) */}
         {step === 2 && (
           <StepWrapper key="step2">
             <h2 className="text-2xl font-bold text-primary mb-1">Standardoitavuus</h2>
             <p className="text-sm text-muted-foreground mb-6">Vaihe 2/4 · {processName}</p>
-            <RadioQuestionGroup
-              questions={standardizabilityQuestions}
-              answers={standardAnswers}
-              onChange={(i, v) => {
-                const next = [...standardAnswers];
-                next[i] = v;
-                setStandardAnswers(next);
-              }}
-            />
-            {standardAnswers.every(a => a !== null) && (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className="mt-6 p-4 rounded-xl border border-border bg-card"
-              >
-                <p className="font-semibold text-primary">{standardLabel.label}</p>
-                <p className="text-sm text-muted-foreground mt-1">{standardLabel.description}</p>
+
+            {/* Q2a */}
+            <div className="mb-8">
+              <p className="font-medium text-primary mb-4">
+                Jos kirjoittaisit tästä prosessista askel askeleelta -ohjeen, voiko kuka tahansa seurata sitä luotettavasti?
+              </p>
+              <div className="space-y-2">
+                {([
+                  { label: "Ei — liian paljon poikkeuksia ja tilannekohtaista harkintaa", value: "ei" as const },
+                  { label: "Osittain — runko on selkeä, mutta merkittäviä poikkeuksia", value: "osittain" as const },
+                  { label: "Kyllä — prosessi on toistettavissa johdonmukaisesti", value: "kylla" as const },
+                ]).map((opt) => (
+                  <label
+                    key={opt.value}
+                    className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer transition-colors ${
+                      stdA === opt.value ? "border-accent bg-accent/5" : "border-border hover:border-muted-foreground/30"
+                    }`}
+                  >
+                    <input type="radio" name="stdA" checked={stdA === opt.value} onChange={() => setStdA(opt.value)} className="accent-accent" />
+                    <span className="text-sm text-foreground">{opt.label}</span>
+                  </label>
+                ))}
+              </div>
+            </div>
+
+            {/* Q2b */}
+            <div className="mb-6">
+              <p className="font-medium text-primary mb-4">
+                Vaatiiko prosessi merkittävää inhimillistä harkintaa, empatiaa tai luovuutta?
+              </p>
+              <div className="space-y-2">
+                {([
+                  { label: "Kyllä, jatkuvasti", value: "kylla_jatkuvasti" as const },
+                  { label: "Joskus", value: "joskus" as const },
+                  { label: "Ei juuri koskaan", value: "ei_juuri" as const },
+                ]).map((opt) => (
+                  <label
+                    key={opt.value}
+                    className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer transition-colors ${
+                      stdB === opt.value ? "border-accent bg-accent/5" : "border-border hover:border-muted-foreground/30"
+                    }`}
+                  >
+                    <input type="radio" name="stdB" checked={stdB === opt.value} onChange={() => setStdB(opt.value)} className="accent-accent" />
+                    <span className="text-sm text-foreground">{opt.label}</span>
+                  </label>
+                ))}
+              </div>
+            </div>
+
+            {/* Show standardizability label when both answered */}
+            {stdA && stdB && (
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mt-4 p-4 rounded-xl border border-border bg-card">
+                <p className="font-semibold text-primary">{stdLabel.label}</p>
+                <p className="text-sm text-muted-foreground mt-1">{stdLabel.description}</p>
               </motion.div>
             )}
+
             <div className="mt-8 flex gap-3">
               <Button variant="outline" onClick={() => setStep(1)}>Takaisin</Button>
-              <Button onClick={handleNext} disabled={!canProceedStep2} className="bg-accent hover:bg-accent/90 text-accent-foreground">
+              <Button onClick={handleStep2Next} disabled={!stdA || !stdB} className="bg-accent hover:bg-accent/90 text-accent-foreground">
                 Seuraava
               </Button>
             </div>
           </StepWrapper>
         )}
 
-        {/* STEP 3: Oversight */}
+        {/* STEP 3: Oversight (2 questions on same screen) */}
         {step === 3 && (
           <StepWrapper key="step3">
             <h2 className="text-2xl font-bold text-primary mb-1">Valvontamodi</h2>
             <p className="text-sm text-muted-foreground mb-6">Vaihe 3/4 · {processName}</p>
-            {oversightQuestions.map((q, qi) => (
-              <div key={qi} className="mb-6">
-                <p className="font-medium text-primary mb-3">{q.question}</p>
-                <div className="space-y-2">
-                  {q.options.map((opt) => (
-                    <label
-                      key={opt.value}
-                      className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer transition-colors ${
-                        oversightAnswers[qi] === opt.value
-                          ? "border-accent bg-accent/5"
-                          : "border-border hover:border-muted-foreground/30"
-                      }`}
-                    >
-                      <input
-                        type="radio"
-                        name={`oversight-${qi}`}
-                        checked={oversightAnswers[qi] === opt.value}
-                        onChange={() => {
-                          const next = [...oversightAnswers];
-                          next[qi] = opt.value;
-                          setOversightAnswers(next);
-                        }}
-                        className="accent-accent"
-                      />
-                      <span className="text-sm text-foreground">{opt.label}</span>
-                    </label>
-                  ))}
-                </div>
+
+            {/* Q3a */}
+            <div className="mb-8">
+              <p className="font-medium text-primary mb-4">
+                Mitä tapahtuu jos agentti tekee virheen tässä prosessissa?
+              </p>
+              <div className="space-y-2">
+                {([
+                  { label: "Helposti korjattava — pieni vaikutus, nopea korjaus", value: "helposti" as const },
+                  { label: "Vakava — vaikea peruuttaa tai merkittävät seuraukset", value: "vakava" as const },
+                ]).map((opt) => (
+                  <label
+                    key={opt.value}
+                    className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer transition-colors ${
+                      ovA === opt.value ? "border-accent bg-accent/5" : "border-border hover:border-muted-foreground/30"
+                    }`}
+                  >
+                    <input type="radio" name="ovA" checked={ovA === opt.value} onChange={() => setOvA(opt.value)} className="accent-accent" />
+                    <span className="text-sm text-foreground">{opt.label}</span>
+                  </label>
+                ))}
               </div>
-            ))}
+            </div>
+
+            {/* Q3b */}
+            <div className="mb-6">
+              <p className="font-medium text-primary mb-4">
+                Onko prosessi säännelty, tai onko vastuu siitä erityisen korkea?
+              </p>
+              <div className="space-y-2">
+                {([
+                  { label: "Ei — normaali liiketoimintaprosessi", value: "ei" as const },
+                  { label: "Kyllä — compliance-vaatimuksia tai korkea vastuu", value: "kylla" as const },
+                ]).map((opt) => (
+                  <label
+                    key={opt.value}
+                    className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer transition-colors ${
+                      ovB === opt.value ? "border-accent bg-accent/5" : "border-border hover:border-muted-foreground/30"
+                    }`}
+                  >
+                    <input type="radio" name="ovB" checked={ovB === opt.value} onChange={() => setOvB(opt.value)} className="accent-accent" />
+                    <span className="text-sm text-foreground">{opt.label}</span>
+                  </label>
+                ))}
+              </div>
+            </div>
+
             <div className="mt-8 flex gap-3">
               <Button variant="outline" onClick={() => setStep(2)}>Takaisin</Button>
-              <Button onClick={handleNext} disabled={!canProceedStep3} className="bg-accent hover:bg-accent/90 text-accent-foreground">
+              <Button onClick={handleStep3Next} disabled={!ovA || !ovB} className="bg-accent hover:bg-accent/90 text-accent-foreground">
                 Seuraava
               </Button>
             </div>
@@ -402,7 +398,9 @@ export default function ProcessAssessment() {
         {step === 4 && (
           <StepWrapper key="step4">
             <h2 className="text-2xl font-bold text-primary mb-1">Kapasiteetti</h2>
-            <p className="text-sm text-muted-foreground mb-6">Vaihe 4/4 · {processName} · Valinnainen</p>
+            <p className="text-sm text-muted-foreground mb-6">
+              {skipOversight ? "Vaihe 3/4" : "Vaihe 4/4"} · {processName} · Valinnainen
+            </p>
             <p className="font-medium text-primary mb-4">
               Kuinka monta tuntia viikossa tiimisi käyttää tähän prosessiin tällä hetkellä?
             </p>
@@ -411,25 +409,17 @@ export default function ProcessAssessment() {
                 <label
                   key={opt.value}
                   className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer transition-colors ${
-                    hoursAnswer === opt.value
-                      ? "border-accent bg-accent/5"
-                      : "border-border hover:border-muted-foreground/30"
+                    hoursAnswer === opt.value ? "border-accent bg-accent/5" : "border-border hover:border-muted-foreground/30"
                   }`}
                 >
-                  <input
-                    type="radio"
-                    name="hours"
-                    checked={hoursAnswer === opt.value}
-                    onChange={() => setHoursAnswer(opt.value)}
-                    className="accent-accent"
-                  />
+                  <input type="radio" name="hours" checked={hoursAnswer === opt.value} onChange={() => setHoursAnswer(opt.value)} className="accent-accent" />
                   <span className="text-sm text-foreground">{opt.label}</span>
                 </label>
               ))}
             </div>
             <div className="mt-8 flex gap-3">
-              <Button variant="outline" onClick={() => setStep(3)}>Takaisin</Button>
-              <Button onClick={() => setStep(5)} className="bg-accent hover:bg-accent/90 text-accent-foreground">
+              <Button variant="outline" onClick={() => setStep(skipOversight ? 2 : 3)}>Takaisin</Button>
+              <Button onClick={handleShowResults} className="bg-accent hover:bg-accent/90 text-accent-foreground">
                 {hoursAnswer ? "Näytä tulokset" : "Ohita ja näytä tulokset"}
               </Button>
             </div>
@@ -437,7 +427,7 @@ export default function ProcessAssessment() {
         )}
 
         {/* RESULTS */}
-        {isResults && oversightMode && (
+        {isResults && (
           <StepWrapper key="results">
             <h2 className="text-2xl font-bold text-primary mb-6 text-center">Tulokset: {processName}</h2>
             <RoleArchitectureCard
@@ -447,7 +437,7 @@ export default function ProcessAssessment() {
               showCapacity={!!hoursAnswer}
             />
             <div className="mt-8">
-              <EmailCapture />
+              <EmailCapture onSubmit={handleEmailSubmit} />
             </div>
             <div className="mt-6 text-center">
               <Button onClick={handleReset} variant="outline" className="gap-2">
@@ -473,46 +463,5 @@ function StepWrapper({ children }: { children: React.ReactNode }) {
     >
       {children}
     </motion.div>
-  );
-}
-
-function RadioQuestionGroup({
-  questions,
-  answers,
-  onChange,
-}: {
-  questions: RadioQuestion[];
-  answers: (number | null)[];
-  onChange: (index: number, value: number) => void;
-}) {
-  return (
-    <div className="space-y-6">
-      {questions.map((q, qi) => (
-        <div key={qi}>
-          <p className="font-medium text-primary mb-3">{q.question}</p>
-          <div className="space-y-2">
-            {q.options.map((opt) => (
-              <label
-                key={opt.value}
-                className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer transition-colors ${
-                  answers[qi] === opt.value
-                    ? "border-accent bg-accent/5"
-                    : "border-border hover:border-muted-foreground/30"
-                }`}
-              >
-                <input
-                  type="radio"
-                  name={`q-${qi}`}
-                  checked={answers[qi] === opt.value}
-                  onChange={() => onChange(qi, opt.value)}
-                  className="accent-accent"
-                />
-                <span className="text-sm text-foreground">{opt.label}</span>
-              </label>
-            ))}
-          </div>
-        </div>
-      ))}
-    </div>
   );
 }
