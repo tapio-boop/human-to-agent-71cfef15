@@ -211,7 +211,7 @@ export default function PortfolioMap() {
             <p className="text-sm text-muted-foreground mb-4">{processes.length}/15 prosessia</p>
 
             <Button
-              onClick={() => setStep("results")}
+              onClick={handleShowResults}
               disabled={processes.length < 3}
               className="gap-2 bg-accent hover:bg-accent/90 text-accent-foreground"
             >
