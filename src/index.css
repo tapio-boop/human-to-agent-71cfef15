@@ -55,12 +55,6 @@
     --gradient-start: 263 85% 77%;
     --gradient-end: 330 86% 70%;
     
-    /* Status colors */
-    --status-warning: 45 93% 47%;
-    --status-warning-foreground: 0 0% 100%;
-    --status-success: 152 56% 35%;
-    --status-success-foreground: 0 0% 100%;
-    
     /* Destructive */
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 100%;

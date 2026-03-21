@@ -64,14 +64,6 @@ export default {
         navy: "hsl(var(--primary))",
         coral: "hsl(var(--accent))",
         indigo: "hsl(var(--secondary))",
-        warning: {
-          DEFAULT: "hsl(var(--status-warning))",
-          foreground: "hsl(var(--status-warning-foreground))",
-        },
-        success: {
-          DEFAULT: "hsl(var(--status-success))",
-          foreground: "hsl(var(--status-success-foreground))",
-        },
       },
       borderRadius: {
         lg: "var(--radius)",
