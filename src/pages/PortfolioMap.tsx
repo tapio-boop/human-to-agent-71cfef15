@@ -90,6 +90,32 @@ export default function PortfolioMap() {
     setNewName("");
   };
 
+  const handleShowResults = async () => {
+    setStep("results");
+    try {
+      await supabase.from("tool_results").insert({
+        tool_name: "portfoliokartta",
+        answers: { processes: processes.map(p => ({ name: p.name, repetitiveness: p.repetitiveness, standardizability: p.standardizability })) },
+        result: { priorityOrder: sortedByPriority.map(p => p.name) },
+      });
+    } catch (e) {
+      console.error("Failed to save results:", e);
+    }
+  };
+
+  const handleEmailSubmit = async (email: string) => {
+    try {
+      await supabase.from("tool_results").insert({
+        tool_name: "portfoliokartta",
+        email,
+        answers: { processes: processes.map(p => ({ name: p.name, repetitiveness: p.repetitiveness, standardizability: p.standardizability })) },
+        result: { priorityOrder: sortedByPriority.map(p => p.name) },
+      });
+    } catch (e) {
+      console.error("Failed to save email results:", e);
+    }
+  };
+
   const sortedByPriority = [...processes].sort((a, b) => {
     const scoreA = a.repetitiveness + a.standardizability;
     const scoreB = b.repetitiveness + b.standardizability;
