@@ -88,16 +88,27 @@ export function Header() {
             className="lg:hidden bg-background border-b border-border"
           >
             <nav className="container-narrow py-4 flex flex-col gap-4">
-              {navItems.map((item) => (
-                <a
-                  key={item.href}
-                  href={item.href}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="text-base font-medium text-primary hover:text-accent transition-colors py-2"
-                >
-                  {item.label}
-                </a>
-              ))}
+              {navItems.map((item) =>
+                item.isRoute ? (
+                  <Link
+                    key={item.href}
+                    to={item.href}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="text-base font-medium text-primary hover:text-accent transition-colors py-2"
+                  >
+                    {item.label}
+                  </Link>
+                ) : (
+                  <a
+                    key={item.href}
+                    href={item.href}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="text-base font-medium text-primary hover:text-accent transition-colors py-2"
+                  >
+                    {item.label}
+                  </a>
+                )
+              )}
             </nav>
           </motion.div>
         )}
