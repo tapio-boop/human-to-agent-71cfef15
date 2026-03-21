@@ -26,7 +26,6 @@ const gridCells: Record<string, { label: string; className: string }> = {
   "1-1": { label: "Pysyy ihmisellä ✗", className: "bg-destructive/10 border-destructive/20" },
   "1-2": { label: "Collaborative tuki", className: "bg-secondary/15 border-secondary/30" },
   "1-3": { label: "Collaborative tuki", className: "bg-secondary/15 border-secondary/30" },
-  "1-3": { label: "Collaborative tuki", className: "bg-secondary/15 border-secondary/30" },
 };
 
 function createEmptyProcess(): Process {
