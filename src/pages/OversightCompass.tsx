@@ -145,11 +145,34 @@ export default function OversightCompass() {
     setAnswers(next);
   };
 
-  const handleNext = () => {
+  const handleNext = async () => {
     if (currentQ < questions.length - 1) {
       setCurrentQ(currentQ + 1);
     } else {
       setStep("results");
+      try {
+        const finalMode = determineMode(answers as string[]);
+        await supabase.from("tool_results").insert({
+          tool_name: "valvontakompassi",
+          answers: { processName, answers },
+          result: { mode: finalMode, processName },
+        });
+      } catch (e) {
+        console.error("Failed to save results:", e);
+      }
+    }
+  };
+
+  const handleEmailSubmit = async (email: string) => {
+    try {
+      await supabase.from("tool_results").insert({
+        tool_name: "valvontakompassi",
+        email,
+        answers: { processName, answers },
+        result: { mode: mode!, processName },
+      });
+    } catch (e) {
+      console.error("Failed to save email results:", e);
     }
   };
 
