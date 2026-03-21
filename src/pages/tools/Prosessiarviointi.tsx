@@ -354,8 +354,8 @@ const Prosessiarviointi = () => {
               </p>
 
               {axis3Result.hasMixed && (
-                <div className="flex items-start gap-3 bg-yellow-500/10 border border-yellow-500/30 rounded-lg p-4 mb-6">
-                  <AlertTriangle className="w-5 h-5 text-yellow-600 mt-0.5 shrink-0" />
+                <div className="flex items-start gap-3 bg-warning/10 border border-warning/30 rounded-lg p-4 mb-6">
+                  <AlertTriangle className="w-5 h-5 text-warning mt-0.5 shrink-0" />
                   <p className="text-sm text-muted-foreground">
                     Akselin 3 vastaukset ovat hajanaisia. Tämä voi viitata siihen, että prosessi sisältää osia, jotka vaativat eri valvontatasoja. Harkitse prosessin pilkkomista osiin.
                   </p>

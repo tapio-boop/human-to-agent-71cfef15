@@ -17,14 +17,15 @@ const freqLabels = ["Harvoin", "Usein", "Jatkuvasti"];
 const stdLabels = ["Matala", "Kohtalainen", "Korkea"];
 
 const gridCells: Record<string, { label: string; className: string }> = {
-  "3-1": { label: "Harkitse — redesign ensin", className: "bg-yellow-500/15 border-yellow-500/30" },
-  "3-2": { label: "Automatisoi — Monitor/Audit", className: "bg-emerald-600/15 border-emerald-600/30" },
-  "3-3": { label: "⭐ Automatisoi — korkea ROI", className: "bg-emerald-600/20 border-emerald-600/40" },
+  "3-1": { label: "Harkitse — redesign ensin", className: "bg-warning/15 border-warning/30" },
+  "3-2": { label: "Automatisoi — Monitor/Audit", className: "bg-success/15 border-success/30" },
+  "3-3": { label: "⭐ Automatisoi — korkea ROI", className: "bg-success/20 border-success/40" },
   "2-1": { label: "Collaborative tuki", className: "bg-secondary/15 border-secondary/30" },
-  "2-2": { label: "Approve/Monitor", className: "bg-yellow-500/15 border-yellow-500/30" },
-  "2-3": { label: "⭐ Hyvä kohde — Approve", className: "bg-emerald-600/15 border-emerald-600/30" },
+  "2-2": { label: "Approve/Monitor", className: "bg-warning/15 border-warning/30" },
+  "2-3": { label: "⭐ Hyvä kohde — Approve", className: "bg-success/15 border-success/30" },
   "1-1": { label: "Pysyy ihmisellä ✗", className: "bg-destructive/10 border-destructive/20" },
   "1-2": { label: "Collaborative tuki", className: "bg-secondary/15 border-secondary/30" },
+  "1-3": { label: "Collaborative tuki", className: "bg-secondary/15 border-secondary/30" },
   "1-3": { label: "Collaborative tuki", className: "bg-secondary/15 border-secondary/30" },
 };
 
