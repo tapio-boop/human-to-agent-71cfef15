@@ -1,12 +1,14 @@
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { Link, useLocation } from "react-router-dom";
 
 const navItems = [
   { label: "Ongelma", href: "#ongelma" },
   { label: "Ydinajatus", href: "#ydinajatus" },
   { label: "9 uskomusta", href: "#uskomukset" },
   { label: "Tieteelliset perusteet", href: "#tieteelliset" },
+  { label: "Työkalut", href: "/tyokalut", isRoute: true },
   { label: "Osallistu", href: "#osallistu" },
 ];
 
