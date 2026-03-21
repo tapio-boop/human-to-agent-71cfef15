@@ -7,6 +7,7 @@ const navItems = [
   { label: "Ydinajatus", href: "#ydinajatus" },
   { label: "9 uskomusta", href: "#uskomukset" },
   { label: "Tieteelliset perusteet", href: "#tieteelliset" },
+  { label: "Työkalut", href: "/tyokalut" },
   { label: "Osallistu", href: "#osallistu" },
 ];
 
