@@ -1,12 +1,14 @@
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { Link, useLocation } from "react-router-dom";
 
 const navItems = [
   { label: "Ongelma", href: "#ongelma" },
   { label: "Ydinajatus", href: "#ydinajatus" },
   { label: "9 uskomusta", href: "#uskomukset" },
   { label: "Tieteelliset perusteet", href: "#tieteelliset" },
+  { label: "Työkalut", href: "/tyokalut", isRoute: true },
   { label: "Osallistu", href: "#osallistu" },
 ];
 
@@ -44,15 +46,25 @@ export function Header() {
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center gap-8">
-            {navItems.map((item) => (
-              <a
-                key={item.href}
-                href={item.href}
-                className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
-              >
-                {item.label}
-              </a>
-            ))}
+            {navItems.map((item) =>
+              item.isRoute ? (
+                <Link
+                  key={item.href}
+                  to={item.href}
+                  className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
+                >
+                  {item.label}
+                </Link>
+              ) : (
+                <a
+                  key={item.href}
+                  href={item.href}
+                  className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
+                >
+                  {item.label}
+                </a>
+              )
+            )}
           </nav>
 
           {/* Mobile Menu Button */}
@@ -76,16 +88,27 @@ export function Header() {
             className="lg:hidden bg-background border-b border-border"
           >
             <nav className="container-narrow py-4 flex flex-col gap-4">
-              {navItems.map((item) => (
-                <a
-                  key={item.href}
-                  href={item.href}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="text-base font-medium text-primary hover:text-accent transition-colors py-2"
-                >
-                  {item.label}
-                </a>
-              ))}
+              {navItems.map((item) =>
+                item.isRoute ? (
+                  <Link
+                    key={item.href}
+                    to={item.href}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="text-base font-medium text-primary hover:text-accent transition-colors py-2"
+                  >
+                    {item.label}
+                  </Link>
+                ) : (
+                  <a
+                    key={item.href}
+                    href={item.href}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="text-base font-medium text-primary hover:text-accent transition-colors py-2"
+                  >
+                    {item.label}
+                  </a>
+                )
+              )}
             </nav>
           </motion.div>
         )}
