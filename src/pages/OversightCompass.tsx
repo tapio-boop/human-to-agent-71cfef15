@@ -7,6 +7,7 @@ import { RoleArchitectureCard } from "@/components/tools/RoleArchitectureCard";
 import { EmailCapture } from "@/components/tools/EmailCapture";
 import { OversightMode } from "@/lib/har-tools-data";
 import { RotateCcw } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 
 const STORAGE_KEY = "har-oversight-compass";
 

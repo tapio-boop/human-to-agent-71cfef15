@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { ToolLayout } from "@/components/tools/ToolLayout";
 import { EmailCapture } from "@/components/tools/EmailCapture";
 import { Plus, X, RotateCcw, ArrowRight } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 
 const STORAGE_KEY = "har-portfolio-map";
 
