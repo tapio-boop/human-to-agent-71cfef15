@@ -291,7 +291,7 @@ export default function PortfolioMap() {
               </div>
             </div>
 
-            <EmailCapture />
+            <EmailCapture onSubmit={handleEmailSubmit} />
 
             <div className="mt-6 text-center flex gap-3 justify-center">
               <Button onClick={() => setStep("input")} variant="outline">
