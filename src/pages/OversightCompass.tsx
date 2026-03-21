@@ -293,7 +293,7 @@ export default function OversightCompass() {
               whyText={generateWhyText(answers as string[], mode)}
             />
             <div className="mt-8">
-              <EmailCapture />
+              <EmailCapture onSubmit={handleEmailSubmit} />
             </div>
             <div className="mt-6 text-center">
               <Button onClick={handleReset} variant="outline" className="gap-2">
