@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { ToolLayout } from "@/components/tools/ToolLayout";
 import { RoleArchitectureCard } from "@/components/tools/RoleArchitectureCard";
 import { EmailCapture } from "@/components/tools/EmailCapture";
-import { OversightMode } from "@/lib/har-tools-data";
+import { OversightMode, oversightModeLabels, roleArchitectures, nextStepRecommendations } from "@/lib/har-tools-data";
 import { AlertTriangle, RotateCcw } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -437,7 +437,16 @@ export default function ProcessAssessment() {
               showCapacity={!!hoursAnswer}
             />
             <div className="mt-8">
-              <EmailCapture onSubmit={handleEmailSubmit} />
+              <EmailCapture
+                onSubmit={handleEmailSubmit}
+                templateData={{
+                  toolName: "Prosessiarviointi",
+                  processName,
+                  resultLabel: oversightModeLabels[oversightMode],
+                  resultDescription: roleArchitectures[oversightMode].collaborationModel,
+                  nextStep: nextStepRecommendations[oversightMode],
+                }}
+              />
             </div>
             <div className="mt-6 text-center">
               <Button onClick={handleReset} variant="outline" className="gap-2">

@@ -1,22 +1,45 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Mail, Check } from "lucide-react";
+import { Mail, Check, Loader2 } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 
 interface EmailCaptureProps {
   onSubmit?: (email: string) => void;
+  templateData?: Record<string, any>;
 }
 
-export function EmailCapture({ onSubmit }: EmailCaptureProps) {
+export function EmailCapture({ onSubmit, templateData }: EmailCaptureProps) {
   const [email, setEmail] = useState("");
   const [sent, setSent] = useState(false);
+  const [sending, setSending] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email) return;
-    // For now, just simulate — backend will be added later
-    onSubmit?.(email);
-    setSent(true);
+    setSending(true);
+
+    try {
+      // Save to DB
+      onSubmit?.(email);
+
+      // Send transactional email
+      if (templateData) {
+        await supabase.functions.invoke("send-transactional-email", {
+          body: {
+            templateName: "tool-results",
+            recipientEmail: email,
+            idempotencyKey: `tool-results-${email}-${Date.now()}`,
+            templateData,
+          },
+        });
+      }
+    } catch (e) {
+      console.error("Failed to send email:", e);
+    } finally {
+      setSending(false);
+      setSent(true);
+    }
   };
 
   if (sent) {
@@ -46,8 +69,8 @@ export function EmailCapture({ onSubmit }: EmailCaptureProps) {
           required
           className="flex-1"
         />
-        <Button type="submit" className="bg-accent hover:bg-accent/90 text-accent-foreground">
-          Lähetä
+        <Button type="submit" disabled={sending} className="bg-accent hover:bg-accent/90 text-accent-foreground">
+          {sending ? <Loader2 className="w-4 h-4 animate-spin" /> : "Lähetä"}
         </Button>
       </form>
     </div>

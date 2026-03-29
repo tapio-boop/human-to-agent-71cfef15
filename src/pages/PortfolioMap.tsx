@@ -291,7 +291,14 @@ export default function PortfolioMap() {
               </div>
             </div>
 
-            <EmailCapture onSubmit={handleEmailSubmit} />
+            <EmailCapture
+              onSubmit={handleEmailSubmit}
+              templateData={{
+                toolName: "Portfoliokartta",
+                resultLabel: "Priorisoitu lista",
+                resultDescription: sortedByPriority.map((p, i) => `${i + 1}. ${p.name}`).join(", "),
+              }}
+            />
 
             <div className="mt-6 text-center flex gap-3 justify-center">
               <Button onClick={() => setStep("input")} variant="outline">
