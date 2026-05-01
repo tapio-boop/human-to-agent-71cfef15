@@ -90,17 +90,9 @@ export default function PortfolioMap() {
     setNewName("");
   };
 
-  const handleShowResults = async () => {
+  const handleShowResults = () => {
     setStep("results");
-    try {
-      await supabase.from("tool_results").insert({
-        tool_name: "portfoliokartta",
-        answers: { processes: processes.map(p => ({ name: p.name, repetitiveness: p.repetitiveness, standardizability: p.standardizability })) },
-        result: { priorityOrder: sortedByPriority.map(p => p.name) },
-      });
-    } catch (e) {
-      console.error("Failed to save results:", e);
-    }
+    // Tulokset tallennetaan vasta kun käyttäjä lähettää ne sähköpostiinsa.
   };
 
   const handleEmailSubmit = async (email: string) => {
