@@ -1,0 +1,1 @@
+DELETE FROM public.tool_results WHERE email = 'test@example.com';
