@@ -126,19 +126,9 @@ export default function ProcessAssessment() {
     setStep(4);
   };
 
-  const handleShowResults = async () => {
+  const handleShowResults = () => {
     setStep(5);
-
-    // Save to database
-    try {
-      await supabase.from("tool_results").insert({
-        tool_name: "prosessiarviointi",
-        answers: { repetitiveness, stdA, stdB, ovA, ovB, hoursAnswer },
-        result: { mode: oversightMode, processName },
-      });
-    } catch (e) {
-      console.error("Failed to save results:", e);
-    }
+    // Tulokset tallennetaan vasta kun käyttäjä lähettää ne sähköpostiinsa.
   };
 
   const handleReset = () => {

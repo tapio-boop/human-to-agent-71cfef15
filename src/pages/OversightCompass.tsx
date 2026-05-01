@@ -145,21 +145,12 @@ export default function OversightCompass() {
     setAnswers(next);
   };
 
-  const handleNext = async () => {
+  const handleNext = () => {
     if (currentQ < questions.length - 1) {
       setCurrentQ(currentQ + 1);
     } else {
       setStep("results");
-      try {
-        const finalMode = determineMode(answers as string[]);
-        await supabase.from("tool_results").insert({
-          tool_name: "valvontakompassi",
-          answers: { processName, answers },
-          result: { mode: finalMode, processName },
-        });
-      } catch (e) {
-        console.error("Failed to save results:", e);
-      }
+      // Tulokset tallennetaan vasta kun käyttäjä lähettää ne sähköpostiinsa.
     }
   };
 
