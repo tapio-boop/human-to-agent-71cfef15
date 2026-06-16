@@ -88,6 +88,6 @@
 
   <!-- HAR Badge -->
   <rect x="300" y="590" width="300" height="40" rx="20" fill="#1E2B4D"/>
-  <text x="450" y="616" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="600" fill="white" letter-spacing="2">HUMAN-TO-AGENT RATIO</text>
+  <text x="450" y="616" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="600" fill="white" letter-spacing="2">HUMAN AGENT RELATIONSHIP</text>
 
 </svg>

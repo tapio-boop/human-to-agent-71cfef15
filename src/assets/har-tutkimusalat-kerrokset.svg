@@ -88,7 +88,7 @@
   <line x1="380" y1="470" x2="520" y2="470" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
 
   <!-- Tagline in core -->
-  <text x="450" y="488" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="rgba(255,255,255,0.5)">Human-to-Agent Ratio</text>
+  <text x="450" y="488" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="rgba(255,255,255,0.5)">Human Agent Relationship</text>
 
   <!-- Legend at bottom -->
   <g transform="translate(450, 700)">
