@@ -40,7 +40,7 @@ export function Header() {
               HAR
             </span>
             <span className="text-[10px] md:text-xs text-muted-foreground -mt-1">
-              Human-to-Agent Ratio
+              Human Agent Relationship
             </span>
           </a>
 

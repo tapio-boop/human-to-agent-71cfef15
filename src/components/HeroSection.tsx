@@ -22,7 +22,7 @@ export function HeroSection() {
             transition={{ delay: 0.2 }}
             className="inline-flex items-center px-4 py-2 rounded-full bg-background-muted border border-border text-secondary text-sm font-medium mb-8"
           >
-            Kirjaprojekti 2026
+            Kirja julkaistaan marraskuussa 2026
           </motion.div>
 
           {/* Main Heading */}

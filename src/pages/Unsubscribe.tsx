@@ -66,7 +66,7 @@ export default function Unsubscribe() {
             <MailX className="w-16 h-16 mx-auto text-primary" />
             <h1 className="text-2xl font-bold text-primary">Peruuta sähköpostitilaus</h1>
             <p className="text-muted-foreground">
-              Haluatko lopettaa sähköpostiviestien vastaanottamisen Human-to-Agent -palvelusta?
+              Haluatko lopettaa sähköpostiviestien vastaanottamisen Human Agent Relationship -palvelusta?
             </p>
             <Button
               onClick={handleUnsubscribe}
