@@ -229,7 +229,7 @@ export default function Kunnat() {
                   disabled={submitting}
                   className="w-full rounded-md bg-accent px-6 py-3 text-base font-medium text-accent-foreground disabled:opacity-60 sm:w-auto"
                 >
-                  Lataa työpohja (PDF)
+                  Lataa työpohjat (PDF)
                 </button>
               </form>
             </>
