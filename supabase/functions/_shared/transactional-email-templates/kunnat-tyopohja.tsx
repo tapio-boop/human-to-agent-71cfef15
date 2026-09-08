@@ -5,7 +5,7 @@ import {
 import type { TemplateEntry } from './registry.ts'
 
 const SITE_NAME = "Human Agent Relationship"
-const PDF_URL = "https://h2a.fi/paatoskartta-tyopohja.pdf"
+const PDF_URL = "https://h2a.fi/har-portfoliokartta.pdf"
 
 interface KunnatProps {
   firstName?: string

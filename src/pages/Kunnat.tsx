@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 
-const PDF_URL = "/paatoskartta-tyopohja.pdf";
+const PDF_URL = "/har-portfoliokartta.pdf";
 
 const groupSizes = [
   { value: "yksin", label: "Yksin" },
@@ -31,7 +31,7 @@ export default function Kunnat() {
   const downloadPdf = () => {
     const a = document.createElement("a");
     a.href = PDF_URL;
-    a.download = "paatoskartta-tyopohja.pdf";
+    a.download = "har-portfoliokartta.pdf";
     document.body.appendChild(a);
     a.click();
     a.remove();
