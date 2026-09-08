@@ -101,6 +101,36 @@ export type Database = {
         }
         Relationships: []
       }
+      event_leads: {
+        Row: {
+          created_at: string
+          email: string
+          event_slug: string
+          first_name: string | null
+          group_size: string
+          id: string
+          organization: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          event_slug?: string
+          first_name?: string | null
+          group_size: string
+          id?: string
+          organization: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          event_slug?: string
+          first_name?: string | null
+          group_size?: string
+          id?: string
+          organization?: string
+        }
+        Relationships: []
+      }
       suppressed_emails: {
         Row: {
           created_at: string
