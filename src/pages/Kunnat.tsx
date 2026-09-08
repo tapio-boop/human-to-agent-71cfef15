@@ -123,24 +123,31 @@ export default function Kunnat() {
         <section id="lataa" className="mt-16 scroll-mt-8 border-t border-border pt-10">
           {done ? (
             <div>
-              <h2 className="text-2xl font-semibold tracking-tight">Työpohja on ladattu</h2>
+              <h2 className="text-2xl font-semibold tracking-tight">Työpohjat on ladattu</h2>
               <p className="mt-4 text-base leading-relaxed text-muted-foreground">
-                Työpohja on sähköpostissasi. Jos teette sen ryhmässä, kuulisin mielelläni
+                Työpohjat ovat sähköpostissasi. Jos teette ne ryhmässä, kuulisin mielelläni
                 miten meni.
               </p>
-              <button
-                type="button"
-                onClick={downloadPdf}
-                className="mt-4 text-base font-medium text-secondary underline underline-offset-4"
-              >
-                Lataa uudelleen
-              </button>
+              <ul className="mt-4 space-y-2">
+                {PDFS.map((pdf) => (
+                  <li key={pdf.url}>
+                    <a
+                      href={pdf.url}
+                      download={pdf.file}
+                      className="text-base font-medium text-secondary underline underline-offset-4"
+                    >
+                      {pdf.label} (PDF)
+                    </a>
+                  </li>
+                ))}
+              </ul>
             </div>
           ) : (
             <>
-              <h2 className="text-2xl font-semibold tracking-tight">Lataa työpohja</h2>
+              <h2 className="text-2xl font-semibold tracking-tight">Lataa työpohjat</h2>
               <p className="mt-3 text-base leading-relaxed text-muted-foreground">
-                Lataus alkaa heti lähetyksen jälkeen, ja työpohja tulee myös sähköpostiin.
+                Saat kaksi työpohjaa: päätöspolun ja portfoliokartan. Lataus alkaa heti
+                lähetyksen jälkeen, ja ne tulevat myös sähköpostiin.
               </p>
               <form onSubmit={handleSubmit} className="mt-8 space-y-6">
                 <div>
