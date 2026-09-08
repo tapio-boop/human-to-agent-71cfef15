@@ -2,7 +2,10 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 
-const PDF_URL = "/har-portfoliokartta.pdf";
+const PDFS = [
+  { url: "/har-paatospolku-tyopohja.pdf", file: "har-paatospolku-tyopohja.pdf", label: "Päätöspolku-työpohja" },
+  { url: "/har-portfoliokartta.pdf", file: "har-portfoliokartta.pdf", label: "Portfoliokartta (A3)" },
+];
 
 const groupSizes = [
   { value: "yksin", label: "Yksin" },
@@ -29,12 +32,16 @@ export default function Kunnat() {
   }, []);
 
   const downloadPdf = () => {
-    const a = document.createElement("a");
-    a.href = PDF_URL;
-    a.download = "har-portfoliokartta.pdf";
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
+    PDFS.forEach((pdf, i) => {
+      setTimeout(() => {
+        const a = document.createElement("a");
+        a.href = pdf.url;
+        a.download = pdf.file;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+      }, i * 400);
+    });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -108,7 +115,7 @@ export default function Kunnat() {
             href="#lataa"
             className="mt-8 inline-block rounded-md bg-accent px-6 py-3 text-base font-medium text-accent-foreground"
           >
-            Lataa työpohja (PDF)
+            Lataa työpohjat (PDF)
           </a>
         </section>
 
@@ -116,24 +123,31 @@ export default function Kunnat() {
         <section id="lataa" className="mt-16 scroll-mt-8 border-t border-border pt-10">
           {done ? (
             <div>
-              <h2 className="text-2xl font-semibold tracking-tight">Työpohja on ladattu</h2>
+              <h2 className="text-2xl font-semibold tracking-tight">Työpohjat on ladattu</h2>
               <p className="mt-4 text-base leading-relaxed text-muted-foreground">
-                Työpohja on sähköpostissasi. Jos teette sen ryhmässä, kuulisin mielelläni
+                Työpohjat ovat sähköpostissasi. Jos teette ne ryhmässä, kuulisin mielelläni
                 miten meni.
               </p>
-              <button
-                type="button"
-                onClick={downloadPdf}
-                className="mt-4 text-base font-medium text-secondary underline underline-offset-4"
-              >
-                Lataa uudelleen
-              </button>
+              <ul className="mt-4 space-y-2">
+                {PDFS.map((pdf) => (
+                  <li key={pdf.url}>
+                    <a
+                      href={pdf.url}
+                      download={pdf.file}
+                      className="text-base font-medium text-secondary underline underline-offset-4"
+                    >
+                      {pdf.label} (PDF)
+                    </a>
+                  </li>
+                ))}
+              </ul>
             </div>
           ) : (
             <>
-              <h2 className="text-2xl font-semibold tracking-tight">Lataa työpohja</h2>
+              <h2 className="text-2xl font-semibold tracking-tight">Lataa työpohjat</h2>
               <p className="mt-3 text-base leading-relaxed text-muted-foreground">
-                Lataus alkaa heti lähetyksen jälkeen, ja työpohja tulee myös sähköpostiin.
+                Saat kaksi työpohjaa: päätöspolun ja portfoliokartan. Lataus alkaa heti
+                lähetyksen jälkeen, ja ne tulevat myös sähköpostiin.
               </p>
               <form onSubmit={handleSubmit} className="mt-8 space-y-6">
                 <div>
@@ -215,7 +229,7 @@ export default function Kunnat() {
                   disabled={submitting}
                   className="w-full rounded-md bg-accent px-6 py-3 text-base font-medium text-accent-foreground disabled:opacity-60 sm:w-auto"
                 >
-                  Lataa työpohja (PDF)
+                  Lataa työpohjat (PDF)
                 </button>
               </form>
             </>
