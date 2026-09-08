@@ -10,7 +10,9 @@ export interface TemplateEntry {
 }
 
 import { template as toolResults } from './tool-results.tsx'
+import { template as kunnatTyopohja } from './kunnat-tyopohja.tsx'
 
 export const TEMPLATES: Record<string, TemplateEntry> = {
   'tool-results': toolResults,
+  'kunnat-tyopohja': kunnatTyopohja,
 }

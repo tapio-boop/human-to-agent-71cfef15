@@ -10,6 +10,7 @@ import ProcessAssessment from "./pages/ProcessAssessment";
 import PortfolioMap from "./pages/PortfolioMap";
 import OversightCompass from "./pages/OversightCompass";
 import Unsubscribe from "./pages/Unsubscribe";
+import Kunnat from "./pages/Kunnat";
 
 const queryClient = new QueryClient();
 
@@ -26,6 +27,7 @@ const App = () => (
           <Route path="/tyokalut/portfoliokartta" element={<PortfolioMap />} />
           <Route path="/tyokalut/valvontakompassi" element={<OversightCompass />} />
           <Route path="/unsubscribe" element={<Unsubscribe />} />
+          <Route path="/kunnat" element={<Kunnat />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
