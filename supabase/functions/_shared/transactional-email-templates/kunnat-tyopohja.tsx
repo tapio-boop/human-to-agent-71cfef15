@@ -20,16 +20,20 @@ const KunnatTyopohjaEmail = ({ firstName, organization }: KunnatProps) => (
     <Body style={main}>
       <Container style={container}>
         <Heading style={h1}>Päätöskartta</Heading>
-        <Text style={subtitle}>Työpohja yhden prosessin päätösten listaamiseen</Text>
+        <Text style={subtitle}>Työpohjat yhden prosessin päätösten listaamiseen</Text>
         <Hr style={hr} />
 
         <Text style={text}>
-          {firstName ? `Hei ${firstName},` : 'Hei,'} tässä on työpohja, josta puhuimme
+          {firstName ? `Hei ${firstName},` : 'Hei,'} tässä ovat työpohjat, joista puhuimme
           Tekoälyagenttivalmius kunnissa -tilaisuudessa.
         </Text>
 
         <Text style={text}>
-          <Link href={PDF_URL} style={link}>Lataa työpohja (PDF)</Link>
+          <Link href={PAATOSPOLKU_URL} style={link}>Lataa päätöspolku-työpohja (PDF)</Link>
+        </Text>
+
+        <Text style={text}>
+          <Link href={PORTFOLIO_URL} style={link}>Lataa portfoliokartta A3 (PDF)</Link>
         </Text>
 
         <Text style={text}>
