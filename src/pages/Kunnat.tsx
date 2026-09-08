@@ -2,7 +2,10 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 
-const PDF_URL = "/har-portfoliokartta.pdf";
+const PDFS = [
+  { url: "/har-paatospolku-tyopohja.pdf", file: "har-paatospolku-tyopohja.pdf", label: "Päätöspolku-työpohja" },
+  { url: "/har-portfoliokartta.pdf", file: "har-portfoliokartta.pdf", label: "Portfoliokartta (A3)" },
+];
 
 const groupSizes = [
   { value: "yksin", label: "Yksin" },
