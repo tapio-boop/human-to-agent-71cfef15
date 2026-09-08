@@ -10,6 +10,7 @@ import ProcessAssessment from "./pages/ProcessAssessment";
 import PortfolioMap from "./pages/PortfolioMap";
 import OversightCompass from "./pages/OversightCompass";
 import Unsubscribe from "./pages/Unsubscribe";
+import Kunnat from "./pages/Kunnat";
 
 const queryClient = new QueryClient();
 
