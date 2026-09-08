@@ -115,7 +115,7 @@ export default function Kunnat() {
             href="#lataa"
             className="mt-8 inline-block rounded-md bg-accent px-6 py-3 text-base font-medium text-accent-foreground"
           >
-            Lataa työpohja (PDF)
+            Lataa työpohjat (PDF)
           </a>
         </section>
 
