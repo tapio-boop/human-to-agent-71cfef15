@@ -32,12 +32,16 @@ export default function Kunnat() {
   }, []);
 
   const downloadPdf = () => {
-    const a = document.createElement("a");
-    a.href = PDF_URL;
-    a.download = "har-portfoliokartta.pdf";
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
+    PDFS.forEach((pdf, i) => {
+      setTimeout(() => {
+        const a = document.createElement("a");
+        a.href = pdf.url;
+        a.download = pdf.file;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+      }, i * 400);
+    });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
