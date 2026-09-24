@@ -9,8 +9,9 @@ export function Footer() {
           "Don't Scale Chaos"
         </p>
         <p className="text-xs text-secondary font-medium">
-          Kirja julkaistaan marraskuussa 2026.
+          Kirja ilmestyy 6.11.2026. Ennakkomyynti alkaa pian.
         </p>
+
       </div>
     </footer>
   );

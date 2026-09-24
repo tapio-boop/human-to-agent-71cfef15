@@ -351,21 +351,8 @@ export function ScienceSection() {
           </div>
         </motion.div>
 
-        {/* Call for researchers */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.6 }}
-          className="bg-accent/10 border-l-4 border-accent rounded-r-xl p-6 md:p-8"
-        >
-          <h3 className="text-xl font-bold text-primary mb-3">Oletko tutkija näillä aloilla?</h3>
-          <p className="text-muted-foreground leading-relaxed">
-            Etsimme tutkijoita sparraamaan ja kommentoimaan HAR-viitekehystä. Jos tunnistat itsesi
-            näistä tutkimusaloista, otamme mielellämme yhteyttä.
-          </p>
-        </motion.div>
       </div>
     </section>
   );
 }
+

@@ -9,8 +9,8 @@ const navItems = [
   { label: "9 uskomusta", href: "#uskomukset" },
   { label: "Tieteelliset perusteet", href: "#tieteelliset" },
   { label: "Työkalut", href: "/tyokalut" },
-  { label: "Osallistu", href: "#osallistu" },
 ];
+
 
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);

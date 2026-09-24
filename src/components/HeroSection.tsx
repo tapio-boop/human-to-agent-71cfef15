@@ -1,64 +1,83 @@
 import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
 import { ArrowDown } from "lucide-react";
+import harCoverImg from "@/assets/har-kirjankansi.png";
 
 export function HeroSection() {
   return (
-    <section className="min-h-screen flex items-center justify-center pt-20 pb-16 relative overflow-hidden">
+    <section className="min-h-screen flex items-center justify-center pt-24 pb-16 relative overflow-hidden">
       {/* Subtle background pattern */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,hsl(var(--background-muted)),hsl(var(--background)))]" />
-      
+
       <div className="container-narrow relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-center max-w-3xl mx-auto"
-        >
-          {/* Badge */}
+        <div className="grid lg:grid-cols-[1.2fr_0.8fr] gap-12 lg:gap-16 items-center">
+          {/* Text column */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.2 }}
-            className="inline-flex items-center px-4 py-2 rounded-full bg-background-muted border border-border text-secondary text-sm font-medium mb-8"
-          >
-            Kirja julkaistaan marraskuussa 2026
-          </motion.div>
-
-          {/* Main Heading */}
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-primary mb-6">
-            Don't Scale{" "}
-            <span className="text-accent">Chaos</span>
-          </h1>
-
-          {/* Subheading */}
-          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed">
-            Miten johdat ihmisten ja tekoälyagenttien muodostamaa järjestelmää? 
-            HAR tarjoaa kielen, mallit ja periaatteet hybridijärjestelmien johtamiseen.
-          </p>
-
-          {/* CTA Button */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
+            transition={{ duration: 0.6 }}
+            className="text-center lg:text-left max-w-2xl mx-auto lg:mx-0"
           >
-            <Button
-              asChild
-              size="lg"
-              className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold px-8 py-6 text-base rounded-lg shadow-lg shadow-accent/25 hover:shadow-xl hover:shadow-accent/30 transition-all"
+            {/* Authors */}
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.1 }}
+              className="text-xs md:text-sm font-semibold uppercase tracking-[0.2em] text-secondary mb-4"
             >
-              <a href="#osallistu">Tule mukaan projektiin</a>
-            </Button>
+              Tapio Nissilä &amp; Niklas Nordling
+            </motion.p>
+
+            {/* Main Heading */}
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-primary mb-6 leading-[1.05]">
+              Ihmisten ja{" "}
+              <span className="text-accent">agenttien</span>{" "}
+              organisaatio
+            </h1>
+
+            {/* Subheading */}
+            <p className="text-lg md:text-xl text-muted-foreground max-w-xl mx-auto lg:mx-0 mb-8 leading-relaxed">
+              Miten muotoilla toimintamalli? HAR tarjoaa kielen, mallit ja
+              periaatteet ihmisten ja tekoälyagenttien muodostamien
+              hybridijärjestelmien johtamiseen.
+            </p>
+
+            {/* Release info */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4 }}
+              className="inline-flex flex-col items-center lg:items-start gap-2"
+            >
+              <span className="inline-flex items-center px-4 py-2 rounded-full bg-background-muted border border-border text-secondary text-sm font-medium">
+                Kirja ilmestyy 6.11.2026
+              </span>
+              <span className="text-sm text-muted-foreground">
+                Ennakkomyynti alkaa lähikuukausina.
+              </span>
+            </motion.div>
           </motion.div>
-        </motion.div>
+
+          {/* Cover image */}
+          <motion.div
+            initial={{ opacity: 0, y: 30, scale: 0.97 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: 0.7, delay: 0.2 }}
+            className="flex justify-center"
+          >
+            <img
+              src={harCoverImg}
+              alt="Kirjan kansikuva: Ihmisten ja agenttien organisaatio — HAR, Human Agent Relationship. Don't Scale Chaos."
+              className="w-64 sm:w-72 lg:w-full max-w-md rounded-lg shadow-xl shadow-primary/20"
+            />
+          </motion.div>
+        </div>
 
         {/* Scroll indicator */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1, duration: 0.5 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2"
+          className="mt-16 lg:mt-12 flex justify-center"
         >
           <a
             href="#ongelma"
