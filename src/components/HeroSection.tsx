@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { ArrowDown } from "lucide-react";
-import harCoverImg from "@/assets/har-kirjankansi.png.asset.json";
+import harCoverImg from "@/assets/har-kirjankansi.png";
 
 export function HeroSection() {
   return (
@@ -65,7 +65,7 @@ export function HeroSection() {
             className="flex justify-center"
           >
             <img
-              src={harCoverImg.url}
+              src={harCoverImg}
               alt="Kirjan kansikuva: Ihmisten ja agenttien organisaatio — HAR, Human Agent Relationship. Don't Scale Chaos."
               className="w-64 sm:w-72 lg:w-full max-w-md rounded-lg shadow-xl shadow-primary/20"
             />
