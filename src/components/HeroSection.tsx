@@ -41,18 +41,23 @@ export function HeroSection() {
               hybridijärjestelmien johtamiseen.
             </p>
 
-            {/* Release info */}
+            {/* Release info + CTA */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
-              className="inline-flex flex-col items-center lg:items-start gap-2"
+              className="inline-flex flex-col items-center lg:items-start gap-4"
             >
+              <a
+                href="https://propublishing.fi/products/ihmisten-ja-agenttien-organisaatio-miten-muotoilet-toimintamallin"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-accent text-accent-foreground text-base font-semibold shadow-md hover:opacity-90 transition"
+              >
+                Osta kirja
+              </a>
               <span className="inline-flex items-center px-4 py-2 rounded-full bg-background-muted border border-border text-secondary text-sm font-medium">
-                Kirja ilmestyy 6.11.2026
-              </span>
-              <span className="text-sm text-muted-foreground">
-                Ennakkomyynti alkaa lähikuukausina.
+                Kirja ilmestyy 6.11.2026 · Ennakkomyynti auki
               </span>
             </motion.div>
           </motion.div>

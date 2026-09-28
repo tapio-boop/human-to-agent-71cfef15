@@ -8,9 +8,17 @@ export function Footer() {
         <p className="text-sm text-muted-foreground italic mb-2">
           "Don't Scale Chaos"
         </p>
-        <p className="text-xs text-secondary font-medium">
-          Kirja ilmestyy 6.11.2026. Ennakkomyynti alkaa pian.
+        <p className="text-xs text-secondary font-medium mb-3">
+          Kirja ilmestyy 6.11.2026 · Ennakkomyynti auki
         </p>
+        <a
+          href="https://propublishing.fi/products/ihmisten-ja-agenttien-organisaatio-miten-muotoilet-toimintamallin"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-accent text-accent-foreground text-sm font-semibold hover:opacity-90 transition"
+        >
+          Osta kirja
+        </a>
 
       </div>
     </footer>
