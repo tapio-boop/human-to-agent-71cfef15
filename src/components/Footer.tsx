@@ -19,6 +19,10 @@ export function Footer() {
         >
           Osta kirja
         </a>
+        <p className="mt-4 text-sm">
+          <a href="/media" className="text-secondary hover:underline">Medialle</a>
+        </p>
+
 
       </div>
     </footer>
