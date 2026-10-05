@@ -59,7 +59,7 @@ export function Header() {
               ) : (
                 <a
                   key={item.href}
-                  href={item.href}
+                  href={`/${item.href}`}
                   className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
                 >
                   {item.label}
@@ -102,7 +102,7 @@ export function Header() {
                 ) : (
                   <a
                     key={item.href}
-                    href={item.href}
+                    href={`/${item.href}`}
                     onClick={() => setIsMobileMenuOpen(false)}
                     className="text-base font-medium text-primary hover:text-accent transition-colors py-2"
                   >
