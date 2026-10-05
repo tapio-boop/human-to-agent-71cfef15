@@ -9,6 +9,7 @@ const navItems = [
   { label: "9 uskomusta", href: "#uskomukset" },
   { label: "Tieteelliset perusteet", href: "#tieteelliset" },
   { label: "Työkalut", href: "/tyokalut" },
+  { label: "Medialle", href: "/media" },
 ];
 
 

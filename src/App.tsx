@@ -11,6 +11,7 @@ import PortfolioMap from "./pages/PortfolioMap";
 import OversightCompass from "./pages/OversightCompass";
 import Unsubscribe from "./pages/Unsubscribe";
 import Kunnat from "./pages/Kunnat";
+import Media from "./pages/Media";
 
 const queryClient = new QueryClient();
 
@@ -28,6 +29,7 @@ const App = () => (
           <Route path="/tyokalut/valvontakompassi" element={<OversightCompass />} />
           <Route path="/unsubscribe" element={<Unsubscribe />} />
           <Route path="/kunnat" element={<Kunnat />} />
+          <Route path="/media" element={<Media />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
