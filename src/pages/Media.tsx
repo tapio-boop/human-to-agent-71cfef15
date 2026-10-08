@@ -76,7 +76,9 @@ Hän on ollut perustamassa mielenterveyspalveluja tuottavaa ohjelmistoyritystä 
 
 const images = [
   { src: COVER, alt: "Kirjan Ihmisten ja agenttien organisaatio kansi", caption: "Kansikuva", size: "88 kt · 1305 × 1885" },
-  { src: "/media/tapio-nissila.jpg", alt: "Tapio Nissilä", caption: "Tapio Nissilä, kirjoittajakuva", size: "120 kt · 800 × 800" },
+  { src: "/media/tapio-nissila-pysty.jpg", alt: "Tapio Nissilä", caption: "Tapio Nissilä, profiilikuva", size: "1,8 Mt · 2000 × 3000" },
+  { src: "/media/tapio-nissila-vaaka.jpg", alt: "Tapio Nissilä", caption: "Tapio Nissilä, vaakakuva", size: "826 kt · 3000 × 2000" },
+  { src: "/media/tapio-nissila-toimituksellinen.jpg", alt: "Tapio Nissilä", caption: "Tapio Nissilä, toimituksellinen kuva", size: "1,2 Mt · 2000 × 3000" },
   { src: "/media/niklas-nordling.jpg", alt: "Niklas Nordling", caption: "Niklas Nordling, kirjoittajakuva", size: "111 kt · 800 × 800" },
 ];
 
@@ -352,7 +354,7 @@ const Media = () => {
             ))}
           </div>
           <p className="text-sm text-muted-foreground mt-5">
-            Kuvat ovat vapaasti käytettävissä kirjaa ja sen kirjoittajia koskevassa toimituksellisessa aineistossa. Mainitse kuvaaja, jos kuvaaja on ilmoitettu.
+            Kuvat ovat vapaasti käytettävissä kirjaa ja sen kirjoittajia koskevassa toimituksellisessa aineistossa.
           </p>
         </Section>
 
