@@ -51,20 +51,22 @@ export function LaunchEventSection() {
             <h3 className="text-sm font-semibold uppercase tracking-widest text-primary-foreground/70 mb-5">
               Ilmoittautuminen
             </h3>
-            {launchEvent.registrationUrl ? (
-              <a
-                href={launchEvent.registrationUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-accent text-accent-foreground text-base font-semibold shadow-md hover:opacity-90 transition"
-              >
-                Ilmoittaudu
-              </a>
-            ) : (
-              <p className="text-primary-foreground/80">
-                Ohjelma ja ilmoittautuminen julkaistaan pian.
-              </p>
-            )}
+            <div className="mt-auto">
+              {launchEvent.registrationUrl ? (
+                <a
+                  href={launchEvent.registrationUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-accent text-accent-foreground text-base font-semibold shadow-md hover:opacity-90 transition"
+                >
+                  Ilmoittaudu
+                </a>
+              ) : (
+                <p className="text-primary-foreground/80">
+                  Ohjelma ja ilmoittautuminen julkaistaan pian.
+                </p>
+              )}
+            </div>
           </div>
         </motion.div>
       </div>
