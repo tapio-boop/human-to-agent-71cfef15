@@ -6,14 +6,6 @@ const launchEvent = {
   date: "Keskiviikko 11.11.2026",
   time: "klo 8.30–10.30",
   place: "Sofia, Sofiankatu 4 C, Helsinki",
-  panel: [
-    { name: "Timo Ritakallio", title: "pääjohtaja, OP Pohjola" },
-    {
-      name: "Outi Sivonen",
-      title: "kokenut HR-johtaja, työkulttuurin kehittäjä ja johtamisen asiantuntija",
-    },
-  ],
-  alsoPresent: "Paikalla myös Teemu Roos.",
   registrationUrl: "",
 };
 
@@ -32,7 +24,7 @@ export function LaunchEventSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="grid lg:grid-cols-[1.1fr_0.9fr] gap-10 lg:gap-16 items-start"
+          className="grid lg:grid-cols-[1.1fr_0.9fr] gap-10 lg:gap-16 items-center"
         >
           <div>
             <p className="text-xs md:text-sm font-semibold uppercase tracking-[0.2em] text-accent mb-4">
@@ -42,8 +34,8 @@ export function LaunchEventSection() {
               Ihmisten ja agenttien organisaatio — kirjan julkistus
             </h2>
             <p className="text-lg text-primary-foreground/80 leading-relaxed mb-8">
-              Kirjoittajat Tapio Nissilä ja Niklas Nordling avaavat kirjan keskeiset ajatukset.
-              Paneelissa keskustellaan siitä, mitä tekoälyagentit vaativat johtamiselta.
+              Kirjan kirjoittajat avaavat teoksen keskeiset ajatukset. Paneelissa keskustellaan
+              siitä, mitä tekoälyagentit vaativat johtamiselta.
             </p>
             <ul className="space-y-3">
               {details.map((item) => (
@@ -57,31 +49,24 @@ export function LaunchEventSection() {
 
           <div className="rounded-xl p-6 md:p-8 border border-primary-foreground/20 bg-primary-foreground/5">
             <h3 className="text-sm font-semibold uppercase tracking-widest text-primary-foreground/70 mb-5">
-              Paneelissa
+              Ilmoittautuminen
             </h3>
-            <ul className="space-y-5 mb-6">
-              {launchEvent.panel.map((person) => (
-                <li key={person.name}>
-                  <p className="text-lg font-semibold text-primary-foreground">{person.name}</p>
-                  <p className="text-sm text-primary-foreground/70">{person.title}</p>
-                </li>
-              ))}
-            </ul>
-            <p className="text-primary-foreground/80 mb-6">{launchEvent.alsoPresent}</p>
-            {launchEvent.registrationUrl ? (
-              <a
-                href={launchEvent.registrationUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-accent text-accent-foreground text-base font-semibold shadow-md hover:opacity-90 transition"
-              >
-                Ilmoittaudu
-              </a>
-            ) : (
-              <p className="text-sm text-primary-foreground/60">
-                Ohjelma ja ilmoittautuminen julkaistaan pian.
-              </p>
-            )}
+            <div className="mt-auto">
+              {launchEvent.registrationUrl ? (
+                <a
+                  href={launchEvent.registrationUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-accent text-accent-foreground text-base font-semibold shadow-md hover:opacity-90 transition"
+                >
+                  Ilmoittaudu
+                </a>
+              ) : (
+                <p className="text-primary-foreground/80">
+                  Ohjelma ja ilmoittautuminen julkaistaan pian.
+                </p>
+              )}
+            </div>
           </div>
         </motion.div>
       </div>
