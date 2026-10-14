@@ -24,7 +24,7 @@ export function LaunchEventSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="grid lg:grid-cols-[1.1fr_0.9fr] gap-10 lg:gap-16 items-start"
+          className="grid lg:grid-cols-[1.1fr_0.9fr] gap-10 lg:gap-16 items-stretch"
         >
           <div>
             <p className="text-xs md:text-sm font-semibold uppercase tracking-[0.2em] text-accent mb-4">
@@ -47,7 +47,7 @@ export function LaunchEventSection() {
             </ul>
           </div>
 
-          <div className="rounded-xl p-6 md:p-8 border border-primary-foreground/20 bg-primary-foreground/5">
+          <div className="rounded-xl p-6 md:p-8 border border-primary-foreground/20 bg-primary-foreground/5 h-full flex flex-col">
             <h3 className="text-sm font-semibold uppercase tracking-widest text-primary-foreground/70 mb-5">
               Ilmoittautuminen
             </h3>
