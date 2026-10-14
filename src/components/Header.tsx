@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
 
 const navItems = [
+  { label: "Julkistus", href: "#julkistus" },
   { label: "Ongelma", href: "#ongelma" },
   { label: "Ydinajatus", href: "#ydinajatus" },
   { label: "9 uskomusta", href: "#uskomukset" },

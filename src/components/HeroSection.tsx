@@ -59,6 +59,12 @@ export function HeroSection() {
               <span className="inline-flex items-center px-4 py-2 rounded-full bg-background-muted border border-border text-secondary text-sm font-medium">
                 Kirja ilmestyy 6.11.2026 · Ennakkomyynti auki
               </span>
+              <a
+                href="#julkistus"
+                className="inline-flex items-center px-4 py-2 rounded-full bg-background-muted border border-border text-secondary text-sm font-medium hover:text-primary transition-colors"
+              >
+                Julkistustilaisuus ke 11.11. · Sofia, Helsinki
+              </a>
             </motion.div>
           </motion.div>
 
