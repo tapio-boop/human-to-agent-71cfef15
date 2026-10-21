@@ -4,8 +4,16 @@ import { CalendarDays, Clock, MapPin } from "lucide-react";
 // Julkistustilaisuuden tiedot. Ilmoittautumisnappi näkyy, kun registrationUrl asetetaan.
 const launchEvent = {
   date: "Keskiviikko 11.11.2026",
-  time: "klo 8.30–10.30",
+  time: "klo 8.45–10.30",
   place: "Sofia, Sofiankatu 4 C, Helsinki",
+  panel: [
+    { name: "Timo Ritakallio", title: "pääjohtaja, OP Pohjola" },
+    {
+      name: "Outi Sivonen",
+      title: "kokenut HR-johtaja, työkulttuurin kehittäjä ja johtamisen asiantuntija",
+    },
+    { name: "Mikael Jungner", title: "toimitusjohtaja, Kreab Oy" },
+  ],
   registrationUrl: "",
 };
 
@@ -49,8 +57,16 @@ export function LaunchEventSection() {
 
           <div className="rounded-xl p-6 md:p-8 border border-primary-foreground/20 bg-primary-foreground/5">
             <h3 className="text-sm font-semibold uppercase tracking-widest text-primary-foreground/70 mb-5">
-              Ilmoittautuminen
+              Paneelissa
             </h3>
+            <ul className="space-y-5 mb-6">
+              {launchEvent.panel.map((person) => (
+                <li key={person.name}>
+                  <p className="text-lg font-semibold text-primary-foreground">{person.name}</p>
+                  <p className="text-sm text-primary-foreground/70">{person.title}</p>
+                </li>
+              ))}
+            </ul>
             <div className="mt-auto">
               {launchEvent.registrationUrl ? (
                 <a
