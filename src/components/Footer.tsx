@@ -9,7 +9,7 @@ export function Footer() {
           "Don't Scale Chaos"
         </p>
         <p className="text-xs text-secondary font-medium mb-3">
-          Kirja ilmestyy 6.11.2026 · Ennakkomyynti auki
+          Kirja ilmestynyt 6.11.2026 · Saatavilla nyt
         </p>
         <a
           href="https://propublishing.fi/products/ihmisten-ja-agenttien-organisaatio-miten-muotoilet-toimintamallin"

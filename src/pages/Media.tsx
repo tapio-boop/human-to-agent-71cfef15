@@ -26,7 +26,7 @@ const facts: [string, React.ReactNode][] = [
   ["Nimi", "Ihmisten ja agenttien organisaatio. Miten muotoilet toimintamallin"],
   ["Kirjoittajat", "Tapio Nissilä, Niklas Nordling"],
   ["Kustantaja", "Professional Publishing Finland Oy"],
-  ["Ilmestyy", "6.11.2026"],
+  ["Ilmestynyt", "6.11.2026"],
   ["Sidosasu", "Pehmeäkantinen"],
   ["ISBN", "978-952-7401-46-0"],
   ["Ohjeellinen hinta", "49 €"],
@@ -256,7 +256,7 @@ const Media = () => {
             </h1>
             <p className="text-xl md:text-2xl text-primary/80 mb-4">Miten muotoilet toimintamallin</p>
             <p className="text-muted-foreground mb-6">
-              Tapio Nissilä ja Niklas Nordling · Professional Publishing Finland · ilmestyy 6.11.2026
+              Tapio Nissilä ja Niklas Nordling · Professional Publishing Finland · ilmestynyt 6.11.2026
             </p>
             <div className="flex flex-wrap gap-3">
               <a href="#yhteystiedot" className={btnPrimary}>Pyydä ennakkokappale</a>
