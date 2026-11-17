@@ -12,6 +12,7 @@ import OversightCompass from "./pages/OversightCompass";
 import Unsubscribe from "./pages/Unsubscribe";
 import Kunnat from "./pages/Kunnat";
 import Media from "./pages/Media";
+import Julkistus from "./pages/Julkistus";
 
 const queryClient = new QueryClient();
 
@@ -30,6 +31,7 @@ const App = () => (
           <Route path="/unsubscribe" element={<Unsubscribe />} />
           <Route path="/kunnat" element={<Kunnat />} />
           <Route path="/media" element={<Media />} />
+          <Route path="/julkistus" element={<Julkistus />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

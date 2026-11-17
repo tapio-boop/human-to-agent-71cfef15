@@ -1,26 +1,14 @@
 import { motion } from "framer-motion";
-import { CalendarDays, Clock, MapPin } from "lucide-react";
+import { Link } from "react-router-dom";
 
-// Julkistustilaisuuden tiedot. Ilmoittautumisnappi näkyy, kun registrationUrl asetetaan.
-const launchEvent = {
-  date: "Keskiviikko 11.11.2026",
-  time: "klo 8.45–10.30",
-  place: "Sofia, Sofiankatu 4 C, Helsinki",
-  panel: [
-    { name: "Timo Ritakallio", title: "pääjohtaja, OP Pohjola" },
-    {
-      name: "Outi Sivonen",
-      title: "kokenut HR-johtaja, työkulttuurin kehittäjä ja johtamisen asiantuntija",
-    },
-    { name: "Mikael Jungner", title: "toimitusjohtaja, Kreab Oy" },
-  ],
-  registrationUrl: "",
-};
-
-const details = [
-  { icon: CalendarDays, text: launchEvent.date },
-  { icon: Clock, text: launchEvent.time },
-  { icon: MapPin, text: launchEvent.place },
+// Julkistustilaisuuden (11.11.2026) paneeli.
+const panel = [
+  { name: "Timo Ritakallio", title: "pääjohtaja, OP Pohjola" },
+  {
+    name: "Outi Sivonen",
+    title: "kokenut HR-johtaja, työkulttuurin kehittäjä ja johtamisen asiantuntija",
+  },
+  { name: "Mikael Jungner", title: "toimitusjohtaja, Kreab Oy" },
 ];
 
 export function LaunchEventSection() {
@@ -36,23 +24,15 @@ export function LaunchEventSection() {
         >
           <div>
             <p className="text-xs md:text-sm font-semibold uppercase tracking-[0.2em] text-accent mb-4">
-              Julkistustilaisuus
+              Julkistus 11.11.2026
             </p>
             <h2 className="text-3xl md:text-4xl font-bold text-primary-foreground tracking-tighter mb-6">
-              Ihmisten ja agenttien organisaatio — kirjan julkistus
+              Kirja julkaistiin täydelle salille
             </h2>
-            <p className="text-lg text-primary-foreground/80 leading-relaxed mb-8">
-              Kirjan kirjoittajat avaavat teoksen keskeiset ajatukset. Paneelissa keskustellaan
-              siitä, mitä tekoälyagentit vaativat johtamiselta.
+            <p className="text-lg text-primary-foreground/80 leading-relaxed">
+              Kirjoittajat avasivat kirjan keskeiset ajatukset, ja paneelissa Timo Ritakallio, Outi Sivonen ja
+              Mikael Jungner keskustelivat siitä, mitä tekoälyagentit vaativat johtamiselta.
             </p>
-            <ul className="space-y-3">
-              {details.map((item) => (
-                <li key={item.text} className="flex items-center gap-3 text-primary-foreground">
-                  <item.icon className="w-5 h-5 text-accent shrink-0" aria-hidden="true" />
-                  <span className="text-base md:text-lg font-medium">{item.text}</span>
-                </li>
-              ))}
-            </ul>
           </div>
 
           <div className="rounded-xl p-6 md:p-8 border border-primary-foreground/20 bg-primary-foreground/5">
@@ -60,29 +40,19 @@ export function LaunchEventSection() {
               Paneelissa
             </h3>
             <ul className="space-y-5 mb-6">
-              {launchEvent.panel.map((person) => (
+              {panel.map((person) => (
                 <li key={person.name}>
                   <p className="text-lg font-semibold text-primary-foreground">{person.name}</p>
                   <p className="text-sm text-primary-foreground/70">{person.title}</p>
                 </li>
               ))}
             </ul>
-            <div className="mt-auto">
-              {launchEvent.registrationUrl ? (
-                <a
-                  href={launchEvent.registrationUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-accent text-accent-foreground text-base font-semibold shadow-md hover:opacity-90 transition"
-                >
-                  Ilmoittaudu
-                </a>
-              ) : (
-                <p className="text-primary-foreground/80">
-                  Ohjelma ja ilmoittautuminen julkaistaan pian.
-                </p>
-              )}
-            </div>
+            <Link
+              to="/julkistus"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-accent text-accent-foreground text-base font-semibold shadow-md hover:opacity-90 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-foreground focus-visible:ring-offset-2 focus-visible:ring-offset-primary"
+            >
+              Katso puheenvuorot ja tunnelmat
+            </Link>
           </div>
         </motion.div>
       </div>
