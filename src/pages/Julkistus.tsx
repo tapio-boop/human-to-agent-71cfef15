@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import { PlayCircle } from "lucide-react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { orderUrl } from "@/lib/julkistus";
+import { PANELISTS, orderUrl } from "@/lib/julkistus";
 
 const TALKS_VIDEO_ID = "YKGG3txU5yQ";
 const SUMMARY_PDF = "/julkistus/HAR_julkistus_11112026_tiivistelma.pdf";
@@ -22,12 +22,6 @@ const panelQuestions = [
   "Tehostammeko vanhaa organisaatiota vai rakennammeko uudenlaista kilpailukykyä?",
   "Helpottaako tekoäly työtä vai tekeekö se siitä vaativampaa?",
   "Kuinka paljon päätösvaltaa uskallamme antaa tekoälylle – ja kuka kantaa vastuun?",
-];
-
-const panelists = [
-  { name: "Timo Ritakallio", title: "pääjohtaja, OP Pohjola" },
-  { name: "Outi Sivonen", title: "kokenut HR-johtaja, työkulttuurin kehittäjä ja johtamisen asiantuntija" },
-  { name: "Mikael Jungner", title: "toimitusjohtaja, Kreab Oy" },
 ];
 
 const heroPhoto = {
@@ -302,11 +296,11 @@ const Julkistus = () => {
         {/* 4. Tiivistelmä */}
         <Section title="Tiivistelmä">
           <p className="text-foreground/90 leading-relaxed max-w-2xl mb-6">
-            Yhdeksän kalvon tiivistelmä niille, jotka eivät päässeet paikalle: kirjan lähtökysymys, puheenvuorojen ydin,
+            Kymmenen kalvon tiivistelmä niille, jotka eivät päässeet paikalle: kirjan lähtökysymys, puheenvuorojen ydin,
             paneelin teemat ja kirjoittajien kolme johtopäätöstä.
           </p>
           <a href={SUMMARY_PDF} download className={btnPrimary}>
-            Lataa tiivistelmä (PDF, 4 Mt)
+            Lataa tiivistelmä (PDF, 3 Mt)
           </a>
         </Section>
 
@@ -341,10 +335,17 @@ const Julkistus = () => {
             ))}
           </ol>
           <div className="grid md:grid-cols-3 gap-5">
-            {panelists.map((p) => (
-              <article key={p.name} className={`${card} p-5 md:p-6`}>
+            {PANELISTS.map((p) => (
+              <article key={p.name} className={`${card} p-5 md:p-6 flex flex-col`}>
                 <h3 className="text-lg font-bold text-primary">{p.name}</h3>
-                <p className="text-sm text-muted-foreground">{p.title}</p>
+                <p className="text-sm text-muted-foreground mb-5">{p.title}</p>
+                <div className="space-y-4">
+                  {p.quotes.map((q) => (
+                    <blockquote key={q} className="border-l-4 border-l-accent pl-4 text-foreground/90 leading-relaxed">
+                      {q}
+                    </blockquote>
+                  ))}
+                </div>
               </article>
             ))}
           </div>

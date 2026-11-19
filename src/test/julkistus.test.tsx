@@ -8,6 +8,8 @@ import Julkistus from "@/pages/Julkistus";
 import { LaunchEventSection } from "@/components/LaunchEventSection";
 import { ORDER_URL, orderUrl } from "@/lib/julkistus";
 
+const OUTI_TITLE = "ihmisymmärrystoimisto Sofuksen perustaja, HR-johtaja, johtamisen asiantuntija";
+
 // jsdom ei tunne IntersectionObserveria; etusivun framer-motion-osiot (whileInView) tarvitsevat sen.
 beforeAll(() => {
   class NoopObserver {
@@ -116,7 +118,7 @@ describe("Julkistus-sivu", () => {
     );
   });
 
-  it("ei upota paneelin ääninäytteitä sisältävää koostevideota", () => {
+  it("ei upota koostevideota, koska siinä näkyy yleisön kasvoja", () => {
     renderPage();
     const iframes = Array.from(document.querySelectorAll("iframe"));
     expect(iframes).toHaveLength(1);
@@ -124,9 +126,10 @@ describe("Julkistus-sivu", () => {
     expect(screen.queryByRole("heading", { name: "Aamu kolmessa minuutissa" })).toBeNull();
   });
 
-  it("tarjoaa tiivistelmän PDF:nä", () => {
+  it("tarjoaa kymmenen kalvon tiivistelmän PDF:nä", () => {
     renderPage();
-    expect(screen.getByRole("link", { name: "Lataa tiivistelmä (PDF, 4 Mt)" })).toHaveAttribute("href", PDF);
+    expect(screen.getByText(/^Kymmenen kalvon tiivistelmä/)).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Lataa tiivistelmä (PDF, 3 Mt)" })).toHaveAttribute("href", PDF);
   });
 
   it("näyttää kolme johtopäätöstä", () => {
@@ -136,7 +139,7 @@ describe("Julkistus-sivu", () => {
     }
   });
 
-  it("paneeliosiossa on moderaattori, kysymykset ja panelistit, mutta ei lainauksia", () => {
+  it("paneeliosiossa on moderaattori, kysymykset ja panelistit esittelyineen", () => {
     renderPage();
     const heading = screen.getByRole("heading", { name: "Paneeli: Mitä tekoälyagentit vaativat johtamiselta?" });
     const panel = heading.closest("section") as HTMLElement;
@@ -145,8 +148,29 @@ describe("Julkistus-sivu", () => {
     for (const name of ["Timo Ritakallio", "Outi Sivonen", "Mikael Jungner"]) {
       expect(within(panel).getByRole("heading", { level: 3, name })).toBeInTheDocument();
     }
-    expect(panel.querySelectorAll("blockquote, q")).toHaveLength(0);
-    expect(panel.textContent).not.toMatch(/[”“"]/);
+    expect(within(panel).getByText(OUTI_TITLE)).toBeInTheDocument();
+    expect(within(panel).queryByText(/kokenut HR-johtaja/)).toBeNull();
+  });
+
+  it("jokaisella panelistilla on kaksi lainausta omassa kortissaan", () => {
+    renderPage();
+    const heading = screen.getByRole("heading", { name: "Paneeli: Mitä tekoälyagentit vaativat johtamiselta?" });
+    const panel = heading.closest("section") as HTMLElement;
+    const expected: Record<string, RegExp[]> = {
+      "Timo Ritakallio": [/^”Generatiivisen tekoälyn murroksessa/, /^”Internet demokratisoi tiedon\./],
+      "Outi Sivonen": [/^”Mitä nopeammin organisaatiot/, /^”Jos ratsastajalle annetaan auto/],
+      "Mikael Jungner": [/^”Vanhassa maailmassa ihannetyöntekijä/, /^”Tekoälyn hallusinaatiot/],
+    };
+    for (const [name, quotes] of Object.entries(expected)) {
+      const cardEl = within(panel).getByRole("heading", { level: 3, name }).closest("article") as HTMLElement;
+      const blocks = Array.from(cardEl.querySelectorAll("blockquote")).map((b) => b.textContent ?? "");
+      expect(blocks).toHaveLength(2);
+      quotes.forEach((re, i) => {
+        expect(blocks[i]).toMatch(re);
+        expect(blocks[i]).toMatch(/”$/);
+      });
+    }
+    expect(panel.querySelectorAll("blockquote")).toHaveLength(6);
   });
 
   it("nostaa kuusi kirjoittajien lainausta, joista jokaisesta on linkki leikkeeseen", () => {
@@ -298,10 +322,12 @@ describe("etusivun julkistusosio", () => {
     expect(screen.queryByText(/klo 8\.45/)).toBeNull();
   });
 
-  it("pitää panelistilistan", () => {
+  it("pitää panelistilistan ja näyttää Outi Sivosen esittelyn hänen toivomassaan muodossa", () => {
     renderSection();
     for (const name of ["Timo Ritakallio", "Outi Sivonen", "Mikael Jungner"]) {
       expect(screen.getByText(name)).toBeInTheDocument();
     }
+    expect(screen.getByText(OUTI_TITLE)).toBeInTheDocument();
+    expect(screen.queryByText(/kokenut HR-johtaja/)).toBeNull();
   });
 });

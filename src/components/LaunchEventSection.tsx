@@ -1,15 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-
-// Julkistustilaisuuden (11.11.2026) paneeli.
-const panel = [
-  { name: "Timo Ritakallio", title: "pääjohtaja, OP Pohjola" },
-  {
-    name: "Outi Sivonen",
-    title: "kokenut HR-johtaja, työkulttuurin kehittäjä ja johtamisen asiantuntija",
-  },
-  { name: "Mikael Jungner", title: "toimitusjohtaja, Kreab Oy" },
-];
+import { PANELISTS } from "@/lib/julkistus";
 
 export function LaunchEventSection() {
   return (
@@ -40,7 +31,7 @@ export function LaunchEventSection() {
               Paneelissa
             </h3>
             <ul className="space-y-5 mb-6">
-              {panel.map((person) => (
+              {PANELISTS.map((person) => (
                 <li key={person.name}>
                   <p className="text-lg font-semibold text-primary-foreground">{person.name}</p>
                   <p className="text-sm text-primary-foreground/70">{person.title}</p>
