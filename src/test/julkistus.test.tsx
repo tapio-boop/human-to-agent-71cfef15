@@ -118,12 +118,25 @@ describe("Julkistus-sivu", () => {
     );
   });
 
-  it("ei upota koostevideota, koska siinä näkyy yleisön kasvoja", () => {
+  it("upottaa koostevideon verkkoversion YouTubesta laiskasti", () => {
     renderPage();
+    const recap = screen.getByTitle("Aamu kolmessa minuutissa");
+    expect(recap.tagName).toBe("IFRAME");
+    expect(recap).toHaveAttribute("src", "https://www.youtube-nocookie.com/embed/QtQHBusl4Hw");
+    expect(recap).toHaveAttribute("loading", "lazy");
     const iframes = Array.from(document.querySelectorAll("iframe"));
-    expect(iframes).toHaveLength(1);
+    expect(iframes).toHaveLength(2);
+    // Driven alkuperäisessä koostevideossa näkyy yleisön kasvoja; sivulla käytetään vain verkkoversiota.
     expect(iframes.some((f) => f.getAttribute("src")?.includes("drive.google.com"))).toBe(false);
-    expect(screen.queryByRole("heading", { name: "Aamu kolmessa minuutissa" })).toBeNull();
+  });
+
+  it("koosteosio tulee nostojen jälkeen ja ennen tiivistelmää", () => {
+    renderPage();
+    const h2s = screen.getAllByRole("heading", { level: 2 }).map((h) => h.textContent);
+    const i = h2s.indexOf("Aamu kolmessa minuutissa");
+    expect(i).toBe(h2s.indexOf("Nostoja puheenvuoroista") + 1);
+    expect(h2s[i + 1]).toBe("Tiivistelmä");
+    expect(screen.getByText("Koostevideo aamusta: kustantajan avaus, kirjoittajien puheenvuorot ja paneeli.")).toBeInTheDocument();
   });
 
   it("tarjoaa kymmenen kalvon tiivistelmän PDF:nä", () => {

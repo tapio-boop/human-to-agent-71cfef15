@@ -6,6 +6,10 @@ import { Footer } from "@/components/Footer";
 import { PANELISTS, orderUrl } from "@/lib/julkistus";
 
 const TALKS_VIDEO_ID = "YKGG3txU5yQ";
+// Koostevideon verkkoversio: yleisön kasvoja näyttävät otokset on vaihdettu (19.11.2026).
+const RECAP_VIDEO_ID = "QtQHBusl4Hw";
+const YT_ALLOW =
+  "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
 const SUMMARY_PDF = "/julkistus/HAR_julkistus_11112026_tiivistelma.pdf";
 const COVER = "/media/nissila-nordling-ihmisten-ja-agenttien-organisaatio-kansi.jpg";
 const PAGE_TITLE = "Kirjan julkistus 11.11.2026 | Ihmisten ja agenttien organisaatio";
@@ -251,7 +255,7 @@ const Julkistus = () => {
           <VideoEmbed
             src={`https://www.youtube-nocookie.com/embed/${TALKS_VIDEO_ID}`}
             title="Tapion ja Niklaksen puheenvuorot"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allow={YT_ALLOW}
           />
           <p className="text-foreground/90 leading-relaxed max-w-2xl mt-6 mb-4">
             Tiivistelmä puheenvuoroista noin kymmenessä minuutissa. Tapio kertoo, miksi toimintamalli on muotoiltava
@@ -291,6 +295,18 @@ const Julkistus = () => {
               </figure>
             ))}
           </div>
+        </Section>
+
+        {/* 3. Aamu kolmessa minuutissa */}
+        <Section title="Aamu kolmessa minuutissa">
+          <VideoEmbed
+            src={`https://www.youtube-nocookie.com/embed/${RECAP_VIDEO_ID}`}
+            title="Aamu kolmessa minuutissa"
+            allow={YT_ALLOW}
+          />
+          <p className="text-foreground/90 leading-relaxed max-w-2xl mt-6">
+            Koostevideo aamusta: kustantajan avaus, kirjoittajien puheenvuorot ja paneeli.
+          </p>
         </Section>
 
         {/* 4. Tiivistelmä */}
